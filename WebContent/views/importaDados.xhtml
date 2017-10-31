@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.verificaAcesso()}" >
+                <div align="center" >
+                    <h:form id="formImportacao" enctype="multipart/form-data" >
+                        <p:tabView widgetVar="tabImportacao" style="min-width:800px;width:800px;height:500px;" >
+                            <!--
+                            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            ABA IMPORTAR ALUNO
+                            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            -->
+                            <p:tab id="dadosAluno" title="Importar Aluno">
+                                <p:growl id="growlImportaAluno" />
+                                <h3 style="padding-top:10px">Observação: Aguardar a mensagem de conclusão ou erro de importação.</h3>
+                                <h:panelGrid id="gridAluno" columns="2" style="margin-top:8px">
+
+                                    <p:fileUpload id="fileAluno" style="width:650px;padding-top:10px"
+                                                  label="Selecione"
+                                                  cancelLabel="Cancelar"
+                                                  uploadLabel="Importar"
+                                                  fileUploadListener="#{ImportarBean.uploadDadosAluno}"
+                                                  mode="advanced"
+                                                  dragDropSupport="false"
+                                                  process="@all"
+                                                  update=":formImportacao"
+                                                  sizeLimit="52428800"
+                                                  fileLimit="2"
+                                                  invalidFileMessage="Arquivo inválido."
+                                                  fileLimitMessage="Importar 1 arquivo de cada vez."
+                                                  allowTypes="/(\.|\/)(xls|xlsx|xlsm)$/" />
+
+                                </h:panelGrid>
+
+                                <h3 style="padding-top:20px">Erros na importação</h3>
+                                <p:inputTextarea id="errosAluno" rows="10" cols="33"
+                                                 style="width:640px"
+                                                 value="#{ImportarBean.importacaoErrosAluno}"
+                                                 readonly="true"
+                                                 autoResize="false"
+                                                 />
+                            </p:tab>
+                            <!--
+                            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            ABA IMPORTAR PROFESSOR
+                            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            -->
+                            <p:tab id="dadosProfessor" title="Importar Professor">
+                                <p:growl id="growlImportacaoProfessor" />
+                                <h3 style="padding-top:10px">Observação: Aguardar a mensagem de conclusão ou erro de importação.</h3>
+                                <h:panelGrid id="gridProfessor" columns="2" style="margin-top:8px">
+                                    <p:fileUpload id="fileProfessor" style="width:650px;padding-top:10px"
+                                                  label="Selecione"
+                                                  cancelLabel="Cancelar"
+                                                  uploadLabel="Importar"
+                                                  fileUploadListener="#{ImportarBean.uploadDadosProfessor}"
+                                                  mode="advanced"
+                                                  dragDropSupport="false"
+                                                  process="@all"
+                                                  update=":formImportacao"
+                                                  sizeLimit="52428800"
+                                                  fileLimit="2"
+                                                  invalidFileMessage="Arquivo inválido."
+                                                  fileLimitMessage="Importar 1 arquivo de cada vez."
+                                                  allowTypes="/(\.|\/)(xls|xlsx|xlsm)$/" />
+                                </h:panelGrid>
+
+                                <h3 style="padding-top:20px">Erros na importação</h3>
+                                <p:inputTextarea id="errosprofessor" rows="10" cols="33"
+                                                 style="width:640px"
+                                                 value="#{ImportarBean.importacaoErrosProfessor}"
+                                                 readonly="true"
+                                                 autoResize="false"
+                                                 />
+
+                            </p:tab>
+                            <!--
+                            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            ABA IMPORTAR TRABALHO
+                            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            -->
+                            <p:tab id="dadosTrabalho" title="Importar Trabalho"  >
+                                <p:growl id="growlImportacaoTrabalho" />
+                                <h3 style="padding-top:10px">Observação: Aguardar a mensagem de conclusão ou erro de importação.</h3>
+                                <h:panelGrid id="gridTrabalho" columns="2" style="margin-top:8px">
+                                    <p:fileUpload id="fileTrabalho" style="width:650px;padding-top:10px"
+                                                  label="Selecione"
+                                                  cancelLabel="Cancelar"
+                                                  uploadLabel="Importar"
+                                                  fileUploadListener="#{ImportarBean.uploadDadosTrabalho}"
+                                                  mode="advanced"
+                                                  dragDropSupport="false"
+                                                  process="@all"
+                                                  update=":formImportacao"
+                                                  sizeLimit="52428800"
+                                                  fileLimit="2"
+                                                  invalidFileMessage="Arquivo inválido."
+                                                  fileLimitMessage="Importar 1 arquivo de cada vez."
+                                                  allowTypes="/(\.|\/)(xls|xlsx|xlsm)$/" />
+                                </h:panelGrid>
+
+                                <h3 style="padding-top:20px">Erros na importação</h3>
+                                <p:inputTextarea id="errosTrabalho" rows="10" cols="33"
+                                                 style="width:640px"
+                                                 value="#{ImportarBean.importacaoErrosTrabalho}"
+                                                 readonly="true"
+                                                 autoResize="false"
+                                                 />
+
+                            </p:tab>
+                        </p:tabView>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

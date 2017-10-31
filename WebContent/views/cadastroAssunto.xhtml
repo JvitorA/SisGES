@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.verificaAcesso()}" >
+                <div align="center" >
+                    <h:form id="cadastroAssunto">
+                        <p:growl id="growlAssunto" />
+                        <p:panel id="panel" header="Área do Estágio" styleClass="painelGeral" >
+                            <h:panelGrid id="grid" columns="2" style="margin-top:8px"   >
+                                <h:outputLabel value="Área \ Assunto:" style="float:right" />
+                                <p:inputText id="curso"  size="70" value="#{AssuntoBean.assunto.nome}"
+                                             required="true" requiredMessage="Digite o assunto."  />
+                                <p:commandButton  id="cadastrar" 
+                                                  update="growlAssunto" 
+
+                                                  icon="ui-icon ui-icon-disk"
+                                                  value="Salvar"  style="margin-top:20px"
+                                                  actionListener="#{AssuntoBean.cadastrar}" />
+                            </h:panelGrid>
+                            <p:focus for="curso" />
+                        </p:panel>
+                    </h:form>
+                    <h:form id="mudarPagina" prependId="false" rendered="#{ProfessorBean.usuarioProfessor != true}"  >
+                        <p:panel id="panel2"  style="margin-bottom:10px;width:650px;" >
+                            <h:panelGrid columns="2"  columnClasses="coluna1, coluna2">
+                                <p:column id="coluna1" >
+                                    <p:commandLink value="Tela Principal" action="sistema.xhtml" ajax="false"   />
+                                </p:column>
+                                <p:column id="coluna2">
+                                    <p:commandLink value="Visualizar Todas Áreas" action="visualizarAssunto.xhtml" ajax="false"  />
+                                </p:column>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

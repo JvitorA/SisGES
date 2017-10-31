@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.verificaAcesso()}" >
+                <div align="center" >
+                    <h:form id="cadastroCampus">
+                        <p:growl id="growlCampus" />
+                        <p:panel id="panel" header="Campus" styleClass="painelGeral" style="width:650px;" >
+                            <h:panelGrid id="grid" columns="2" style="margin-top:8px"   >
+
+                                <h:outputLabel value="Campus:" style="float:right" />
+                                <p:inputText id="nome"  size="40" value="#{CampusBean.campus.nomecampus}"
+                                             required="true" requiredMessage="Digite Nome."  />
+                                <h:outputLabel value="CEP:" style="float:right" />
+
+                                <p:inputMask id="cep"  size="40" value="#{CampusBean.campus.cep}"
+                                             mask="99999-999"
+                                             required="true" requiredMessage="Digite a Matricula."  />
+
+                                <h:outputLabel value="Cidade:" style="float:right" />
+                                <p:inputText id="cidade" size="40" value="#{CampusBean.campus.cidade}"
+                                             required="true" requiredMessage="Digite o Email." />
+                                <h:outputLabel value="Estado:" style="float:right" />
+                                <p:selectOneMenu id="estado" required="true"
+                                                 value="#{CampusBean.campus.estado}"
+                                                 style="width:275px;" requiredMessage="Selecione o curso." >
+                                    <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Minas Gerais" itemValue="Minas Gerais-MG" />
+                                </p:selectOneMenu >
+                                <p:commandButton id="botaoCadastrar"  style="margin-top:20px;"
+
+                                                 icon="ui-icon-disk"
+                                                 value="Salvar"
+                                                 update="growlCampus"
+                                                 actionListener="#{CampusBean.cadastrar}"
+                                                 />
+                            </h:panelGrid>
+                            <p:focus for="nome" />
+                        </p:panel>
+                    </h:form>
+                    <h:form id="mudarPagina" prependId="false" >
+                        <p:panel id="panel2"  style="margin-bottom:10px;width:650px;" >
+                            <h:panelGrid columns="2"  columnClasses="coluna1, coluna2">
+                                <p:column id="coluna1" >
+                                    <p:commandLink value="Tela Principal" action="sistema.xhtml" ajax="false"   />
+                                </p:column>
+                                <p:column id="coluna2">
+                                    <p:commandLink value="Visualizar Todos Campus" action="visualizarCampus.xhtml" ajax="false"  />
+                                </p:column>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>
+

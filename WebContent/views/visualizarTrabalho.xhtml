@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.verificaAcesso()}" >
+                <div align="center">
+                    <h:form id="formVisualizarTrabalho" prependId="false" >
+                        <p:dataTable id="tabelaTrabalho"
+                                     value="#{TrabalhoBean.listaTrabalhos}"
+                                     var="obj"
+                                     filteredValue="#{TrabalhoBean.filtroTrabalhos}"
+                                     paginator="true"
+                                     rows="10"
+                                     sortMode="multiple"
+                                     emptyMessage="Nenhum registro encontrado."
+                                     >
+                            <f:facet name="header">
+                                <h:outputText value="Trabalhos" style="padding-left:20px;" />
+                                <p:commandLink action="#{TrabalhoBean.direcionaCadastroTrabalho()}"
+                                               value="Cadastrar Trabalho"
+                                               ajax="false"
+                                               style="float:right;" />
+                                <p:commandLink action="#{TrabalhoBean.direcionaCadastroBanca()}"
+                                               value="Cadastrar Banca"
+                                               ajax="false"
+                                               style="float:left;" />
+                            </f:facet>
+                            <p:column id="nomeAluno"
+                                      filterBy="#{obj.alunomatricula.nome}" filterStyle="width:80%"
+                                      style="width:150px"
+                                      sortBy="#{obj.alunomatricula.nome}" headerText="Aluno">
+                                <h:outputText value="#{obj.alunomatricula.nome}"  />
+                            </p:column>
+
+                            <p:column id="emailAluno"
+                                      filterBy="#{obj.alunomatricula.email}" filterStyle="width:80%"
+                                      style="width:140px"
+                                      sortBy="#{obj.alunomatricula.email}" headerText="Email do Aluno">
+                                <h:outputText value="#{obj.alunomatricula.email}"  />
+                            </p:column>
+
+                            <p:column id="nomeProfessor" style="width:150px"
+                                      filterBy="#{obj.professorsiape.nome}" filterStyle="width:80%"
+                                      sortBy="#{obj.professorsiape.nome}" headerText="Orientador">
+                                <h:outputText value="#{obj.professorsiape.nome}"  />
+                            </p:column>
+
+                            <p:column id="dataMatricula"
+                                      style="width:60px;text-align:center;"
+                                      filterBy="#{obj.datamatricula}" filterStyle="width:80%"
+                                      sortBy="#{obj.datamatricula}" headerText="Data Matricula">
+                                <h:outputText value="#{FormatarBean.parseDataBR(obj.datamatricula)}"   />
+                            </p:column>
+
+                            <p:column id="dataFinalizacao"
+                                      style="width:65px;text-align:center;"
+                                      filterBy="#{obj.datafinalizacao}" filterStyle="width:80%"
+                                      sortBy="#{obj.datafinalizacao}" headerText="Data Finalização">
+                                <h:outputText value="#{FormatarBean.parseDataBR(obj.datafinalizacao)}"   />
+                            </p:column>
+
+                            <p:column id="status"
+                                      style="width:75px;text-align:center;"
+                                      filterBy="#{obj.statusidstatus.tipostatus}" filterStyle="width:80%"
+                                      sortBy="#{obj.statusidstatus.tipostatus}" headerText="Status do Trabalho">
+                                <h:outputText value="#{obj.statusidstatus.tipostatus}"  />
+                            </p:column>
+                            <p:column headerText="Alterar Trabalho"
+                                      style="width:35px;text-align:center" exportable="false">
+                                <p:commandButton id="botaoAlterarTrabalho" ajax="false"
+                                                 process="@this"
+                                                 style="height:20px;width:30px"
+
+                                                 icon="ui-icon-refresh"
+                                                 action="#{TrabalhoBean.direcionaAlterarTrabalho(obj)}" />
+                            </p:column>
+                            <p:column headerText="Visualizar Banca"
+                                      style="width:40px;text-align:center;" exportable="false">
+                                <p:commandButton id="botaoAlterarBanca"
+                                                 ajax="false"
+                                                 style="height:20px;width:30px;"
+                                                 icon="ui-icon-search"
+                                                 action="#{TrabalhoBean.direcionaAlterarBanca(obj)}"
+                                                 rendered="#{BancaBean.existeBanca(obj)}" />
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandLink style="float: left;padding:2px;" ajax="false" >
+                            <p:graphicImage value="/resources/images/excel.jpg" title="Exportar para Excel" width="24"/>
+                            <p:dataExporter type="xls" target="tabelaTrabalho" fileName="Trabalhos" />
+                        </p:commandLink>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

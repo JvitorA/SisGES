@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{EmailBean.carregarEmailConfig()}" >
+                <div align="center" >
+                    <!--
+                   ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                   FORMULARIO EMAIL CONFIG
+                   ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                    -->
+
+                    <p:tabView widgetVar="tabEmailConfig" styleClass="painelGeral" >
+                        <p:tab id="dadosEmailConfig" title="Email Configuração">
+                            <h:form id="formEmailConfig" prependId="false" >
+                                <p:growl id="growlEmailConfig" />
+
+                                <h:panelGrid id="gridEmail" columns="2" style="margin-top:8px" >
+
+                                    <h:outputLabel value="Sistema:" style="float:right" />
+                                    <p:inputText id="nome"  size="40" disabled="true"
+                                                 value="#{EmailBean.emailConfig.nome}"
+                                                 required="true" requiredMessage="Digite o Nome do Sistema."  />
+
+                                    <h:outputLabel value="Email:" style="float:right" />
+                                    <p:inputText id="email"  size="40"
+                                                 value="#{EmailBean.emailConfig.email}"
+                                                 required="true" requiredMessage="Digite o Email."  />
+
+                                    <h:outputLabel value="Usuário:" style="float:right" />
+                                    <p:inputText id="usuario"  size="40"
+                                                 value="#{EmailBean.emailConfig.usuario}"
+                                                 required="true" requiredMessage="Digite o Usuário"  />
+
+                                    <h:outputLabel value="Senha:" style="float:right" />
+                                    <p:inputText id="senha"  size="40"
+                                                 value="#{EmailBean.emailConfig.senha}"
+                                                 required="true" requiredMessage="Digite a Senha"  />
+
+                                    <h:outputLabel value="Host:" style="float:right" />
+                                    <p:inputText id="host"  size="40"
+                                                 value="#{EmailBean.emailConfig.hostname}"
+                                                 required="true" requiredMessage="Digite o Host"  />
+
+                                    <h:outputLabel value="Porta:" style="float:right" />
+                                    <p:inputText id="porta"  size="40"
+                                                 value="#{EmailBean.emailConfig.porta}"
+                                                 required="true" requiredMessage="Digite o nº da Porta"  />
+
+                                    <h:outputLabel value="SSL:" style="float:right" />
+                                    <p:selectBooleanCheckbox value="#{EmailBean.emailConfig.ssl}"
+                                                             style="width:30px;padding-left:10px;">
+                                    </p:selectBooleanCheckbox>
+                                    <h:outputLabel value="TSL:" style="float:right" />
+                                    <p:selectBooleanCheckbox value="#{EmailBean.emailConfig.tsl}"
+                                                             style="width:30px;padding-left:10px;">
+                                    </p:selectBooleanCheckbox>
+
+                                    <p:commandButton id="botaoAlterarConfig"
+                                                     style="margin-top:20px;"
+                                                     icon="ui-icon-refresh"
+                                                     value="Alterar"
+                                                     update="growlEmailConfig"
+                                                     actionListener="#{EmailBean.alterarEmailConfg()}" />
+                                </h:panelGrid>
+                                <p:focus for="nome" />
+                            </h:form>
+                        </p:tab>
+
+
+                        <p:tab id="criarEmail" title="Enviar Email">
+                            <h:form id="formEmailEnviar" prependId="false" >
+                                <p:growl id="growlNovoEmail" />
+
+                                <h:panelGrid id="gridEnviar" columns="2" style="margin-top:8px" >
+                                    <h:outputLabel value="De:" style="float:right" />
+                                    <p:inputText id="de"  size="40"
+                                                 value="#{EmailBean.emailConfig.email}"
+                                                 disabled="true"
+                                                 required="true" requiredMessage="Digite o Email."  />
+
+                                    <h:outputLabel value="Para:" style="float:right" />
+                                    <p:inputText id="para"  size="80"
+                                                 value="#{EmailBean.destinatarios}"
+                                                 required="true" requiredMessage="Digite o Destinatário."  />
+                                    <h:outputLabel value="Titulo:" style="float:right" />
+                                    <p:inputText id="titulo"  size="80"
+                                                 value="#{EmailBean.titulo}"
+                                                 required="true" requiredMessage="Digite o Titulo."  />
+
+                                </h:panelGrid>
+                                <h3 style="padding-top:5px;padding-bottom:5px">Observação: Separar emails dos destinatários por  ( ; ) </h3>
+                                <p:editor id="editor" widgetVar="editorWidget"
+                                          value="#{EmailBean.mensagem}" width="610"
+                                          required="true" requiredMessage="Digite a Mensagem."  />
+                                <h:panelGrid columns="2" style="margin-top: 10px">
+                                    <p:commandButton value="Enviar"
+                                                     update="growlNovoEmail" 
+                                                     actionListener="#{EmailBean.enviarEmail()}"
+                                                     icon="ui-icon-disk" />
+                                    <p:commandButton value="Excluir" type="button"
+                                                     onclick="PF('editorWidget').clear();"
+                                                     icon="ui-icon-close" />
+                                </h:panelGrid>
+                            </h:form>
+                        </p:tab>
+                    </p:tabView>
+
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.verificaAcesso()}" >
+                <div align="center">
+                    <h:form id="formVisualizarEmpresa" >
+                        <p:dataTable id="tabelaEmpresa"
+                                     value="#{EmpresaBean.listaEmpresas}"
+                                     var="obj"
+                                     filteredValue="#{EmpresaBean.filtroEmpresas}"
+                                     paginator="true"
+                                     rows="10"
+                                     sortMode="multiple"
+                                     emptyMessage="Nenhum registro encontrado."
+                                     >
+                            <f:facet name="header">
+                                <h:outputText value="Empresas" style="padding-left:100px;" />
+                                <p:commandLink action="cadastroEmpresa.xhtml"
+                                               value="Cadastrar Empresa" ajax="false"
+                                               style="float: right;" />
+                            </f:facet>
+                            <p:column id="nome"
+                                      filterBy="#{obj.nome}" filterStyle="width:80%"
+                                      sortBy="#{obj.nome}" headerText="Nome">
+                                <h:outputText value="#{obj.nome}" />
+                            </p:column>
+                            <p:column id="endereco"
+                                      filterBy="#{obj.endereco}" filterStyle="width:80%"
+                                      sortBy="#{obj.endereco}" headerText="Endereço">
+                                <h:outputText value="#{obj.endereco}" />
+                            </p:column>
+                            <p:column id="area"
+                                      filterBy="#{obj.area}" filterStyle="width:80%"
+                                      sortBy="#{obj.area}" headerText="Área">
+                                <h:outputText value="#{obj.area}" />
+                            </p:column>
+                            <p:column id="telefone"  style="width:110px"
+                                      filterBy="#{obj.telefone}" filterStyle="width:80%"
+                                      filterMatchMode="contains"
+                                      sortBy="#{obj.telefone}" headerText="Telefone">
+                                <h:outputText value="#{obj.telefone}" />
+                            </p:column>
+                            <p:column headerText="Alterar" style="width:40px" exportable="false" >
+                                <p:commandButton ajax="false" 
+                                                 style="height:20px;width:30px;margin-left:5px"
+                                                 icon="ui-icon-refresh"
+                                                 action="#{EmpresaBean.direcionaAlterarEmpresa(obj)}" />
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandLink style="float: left;padding:2px;" ajax="false" >
+                            <p:graphicImage value="/resources/images/excel.jpg" title="Exportar para Excel" width="24"/>
+                            <p:dataExporter type="xls" target="tabelaEmpresa" fileName="Empresas" />
+                        </p:commandLink>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

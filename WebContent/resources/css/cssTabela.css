@@ -1,0 +1,69 @@
+/* 
+    Created on : 27/04/2014, 19:55:02
+    Author     : Alessandro
+*/
+/*----------------------------------------------------------------------------*/
+/*CSS PARA TABELAS------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+root { 
+    display: block;
+}
+
+.tabela {
+    padding-top: 20px;
+    font-family: Arial;
+    font-size: 10pt;
+    text-align: center;
+}
+
+.corpo  {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #a8722e;
+    background: darkgray;
+}
+
+.linhaPar  {
+    background: #b2b2b2;
+
+}
+.linhaImpar  {
+    background: #e5e5e5;
+}
+
+.cabecalhoTabela {
+    text-align: center;
+    color: white;
+    background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0)));
+}
+
+.rodape {
+    text-align: center;
+    color: #000000;
+    font-weight : bold;
+    background: #c48535;
+    font-size:18px;
+}
+
+.panelGroupBotao{
+    /*position: relative;
+    alignment-adjust: left;*/
+    padding-right: 300px;
+
+}
+.panelGroupBotaoAlterar{
+    /*position: relative;
+    alignment-adjust: left;*/
+    padding-right: 400px;
+
+}
+
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+.painelGroup {
+    padding: 5px 5px 5px 5px;
+}
+.outputLabel {
+    padding: 5px 5px 5px 5px;
+}

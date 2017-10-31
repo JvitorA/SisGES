@@ -1,0 +1,20 @@
+/* 
+    Author     : Alessandro
+*/
+
+root { 
+    display: block;
+}
+
+.erros{
+    color:white;
+    background-color:red;
+    padding:3px;
+}
+
+.sucesso{
+    color:white;
+    background-color:#00FF00;
+    padding:3px;   
+}
+

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <div align="center">
+                <h:body onload="#{LoginBean.verificaAcesso()}" >
+                    <h:form id="formVisualizarProfessor">
+                        <p:growl id="growlVisualzarProfessor" />
+                        <p:dataTable id="tabelaProfessor"
+                                     value="#{ProfessorBean.listaProfessores}"
+                                     var="obj"
+                                     filteredValue="#{ProfessorBean.filtroProfessores}"
+                                     paginator="true"
+                                     rows="10"
+                                     sortMode="multiple"
+                                     emptyMessage="Nenhum registro encontrado."
+                                     >
+                            <f:facet name="header">
+                                <h:outputText value="Professores" style="padding-left:100px;" />
+                                <p:commandLink action="cadastroProfessor.xhtml"
+                                               value="Cadastrar Professor" ajax="false"
+                                               style="float: right;" />
+                            </f:facet>
+                            <p:column id="siape" style="width:60px" headerText="Siape"
+                                      filterBy="#{obj.siape}" filterMatchMode="contains"
+                                      filterStyle="width:80%"
+                                      sortBy="#{obj.siape}">
+                                <h:outputText value="#{obj.siape}" converter="javax.faces.Integer" />
+                            </p:column>
+                            <p:column  id="nome" style="width:180px"
+                                       filterBy="#{obj.nome}" filterStyle="width:80%"
+                                       sortBy="#{obj.nome}"
+                                       headerText="Nome">
+                                <h:outputText value="#{obj.nome}" />
+                            </p:column>
+                            <p:column  id="email"
+                                       filterBy="#{obj.email}" filterStyle="width:80%"
+                                       sortBy="#{obj.email}"
+                                       headerText="Email" style="width:200px">
+                                <h:outputText value="#{obj.email}" />
+                            </p:column>
+                            <p:column id="telefone" style="width:85px"
+                                      filterBy="#{obj.telefone}" filterMatchMode="contains" filterStyle="width:80%"
+                                      sortBy="#{obj.telefone}"
+                                      headerText="Telefone">
+                                <h:outputText value="#{obj.telefone}" />
+                            </p:column>
+                            <p:column id="ativoFormatado"  style="width:50px;text-align:center"
+                                      filterBy="#{obj.ativoFormatado}" filterStyle="width:80%"
+                                      sortBy="#{obj.ativoFormatado}"
+                                      headerText="Ativo">
+                                <h:outputText value="#{obj.ativoFormatado}" />
+                            </p:column>
+                            <p:column id="nomePerfil" style="width:150px"
+                                      filterBy="#{obj.perfilidperfil.nomeperfil}" filterStyle="width:80%"
+                                      sortBy="#{obj.perfilidperfil.nomeperfil}"
+                                      headerText="Perfil">
+                                <h:outputText value="#{obj.perfilidperfil.nomeperfil}" />
+                            </p:column >
+                            <p:column headerText="Alterar" style="width:40px" exportable="false">
+                                <div align="center">
+                                    <p:commandButton ajax="false" style="height:20px;width:30px;margin-left:10px"
+
+                                                     icon="ui-icon-refresh"
+                                                     action="#{ProfessorBean.direcionaAlterarProfessor(obj)}" />
+                                </div>
+                            </p:column>
+                            <p:column headerText="Desativar" style="width:48px" exportable="false">
+                                <div align="center">
+                                    <p:commandButton ajax="false" 
+                                                     style="height:20px;width:30px;margin-left:10px"
+                                                     process="@this"
+                                                     icon="ui-icon-close"
+                                                     action="#{ProfessorBean.desativarProfessor(obj)}" />
+                                </div>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandLink style="float: left;padding:2px;" ajax="false" >
+                            <p:graphicImage value="/resources/images/excel.jpg" title="Exportar para Excel" width="24"/>
+                            <p:dataExporter type="xls" target="tabelaProfessor" fileName="Professores" />
+                        </p:commandLink>
+                    </h:form>
+                </h:body>
+            </div>
+        </f:view>
+    </ui:define>
+</ui:composition>

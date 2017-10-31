@@ -1,0 +1,64 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27/04/2014, 19:55:02
+    Author     : Alessandro
+*/
+
+/* mudar o tamanho da fonte do primefaces*/
+.ui-widget {
+    font-size: 12px !important;
+}
+
+/* mudar o tamanho do picklist do primefaces*/
+.ui-picklist .ui-picklist-list{
+    width:370px !important;
+}
+/* mudar o tamanho do picklist filter do primefaces*/
+.ui-picklist .ui-picklist-filter {
+    padding-right: 15px;
+    width: 94% !important;
+}
+/* mudar o tamanho do picklist filter icon do primefaces*/
+.ui-picklist .ui-picklist-filter-container .ui-icon {
+    position: absolute;
+    top: 5px;
+    right: 10px !important;
+}
+
+/*usado no footer.xhtml*/
+.facetpicklist{
+     width:400px;
+}
+
+/*usado no header.xhtml*/
+.painelHeader{
+    width:100%;
+    height: 100%;
+    background:#c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0)));
+    padding-left: 10px;
+}
+/*usado no footer.xhtml*/
+.painelFooter{
+    padding-top:2px;
+    width:100%;
+    height:100%;
+}
+
+/*todos os paineis*/
+.painelGeral{
+    margin-bottom:10px;
+    width:650px;
+    min-width: 650px;
+    text-align:left;
+}
+
+/*painel login*/
+.painelLogin{
+    margin-bottom:10px;
+    width:50%;
+    text-align:left;
+}

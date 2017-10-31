@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{EmpresaBean.empresaAlterar}" >
+                <div align="center" >
+                    <h:form  prependId="false" >
+                        <p:growl id="growlEmpresa" />
+                        <p:panel id="panel" header="Alterar Dados da Empresa " styleClass="painelGeral" >
+                            <p:message for="alterar"  />
+                            <h:panelGrid id="grid" columns="2" style="margin-top:8px"   >
+                                <h:outputLabel value="Nome:" style="float:right" />
+                                <p:inputText id="nome"  size="40" value="#{EmpresaBean.empresa.nome}"
+                                             required="true" requiredMessage="Digite o nome da empresa." />
+                                <h:outputLabel value="Endereço:" style="float:right" />
+                                <p:inputText id="endereco"  size="40" value="#{EmpresaBean.empresa.endereco}"
+                                             required="true" requiredMessage="Digite o endereço."  />
+                                <h:outputLabel value="Área:" style="float:right" />
+                                <p:inputText id="area" size="40" value="#{EmpresaBean.empresa.area}"
+                                             required="true" requiredMessage="Digite a área." />
+                                <h:outputLabel value="Telefone:" style="float:right" />
+                                <p:inputMask id="telefone" size="40"  value="#{EmpresaBean.empresa.telefone}" mask="(99) 9999-9999" required="false"/>
+                                <p:commandButton  id="alterar" 
+                                                  style="margin-top:20px;" 
+                                                  update="growlEmpresa"
+
+                                                  icon="ui-icon-disk"
+                                                  value="Salvar Alteração"  
+                                                  actionListener="#{EmpresaBean.alterarEmpresa}" />
+                                <p:focus for="nome" />
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                    <h:form id="mudarPagina" prependId="false" >
+                        <p:panel  style="margin-bottom:10px;width:650px;" >
+                            <h:panelGrid columns="2"  columnClasses="coluna1, coluna2">
+                                <p:column id="coluna1" >
+                                    <p:commandLink value="Cadastrar Empresa" action="cadastroEmpresa.xhtml" ajax="false"   />
+                                </p:column>
+                                <p:column id="coluna2">
+                                    <p:commandLink value="Visualizar Todas Empresas" action="visualizarEmpresa.xhtml" ajax="false"  />
+                                </p:column>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

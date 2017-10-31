@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <!--
+            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            FORMULARIO ALTERAR BANCA
+            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            -->
+            <h:body onload="#{BancaBean.carregarBanca()}" >
+                <div align="center" >
+                    <h:form id="alteraBanca" prependId="false" >
+                        <p:growl id="growlBanca" />
+                        <p:panel id="panel" header="Marcar Banca" style="margin-bottom:10px;width:98%;">
+                            <h:panelGrid id="grid" columns="2" style="margin-top:8px;padding-right:145px;">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel value="Status:" style="float:right" />
+                                    <p:inputText id="status"  size="40"
+                                                 value="#{BancaBean.banca.statusidstatus.tipostatus}"
+                                                 disabled="true" />
+                                    <h:outputLabel value="Trabalho do Aluno:" style="float:right" />
+                                    <p:inputText id="trabalho"  size="76"
+                                                 value="#{BancaBean.tituloBanca}"
+                                                 disabled="true" />
+                                    <h:outputLabel value="Local da Defesa:" style="float:right" />
+                                    <p:inputText id="nome"  size="40"
+                                                 disabled="#{BancaBean.bancaFinalizada or ProfessorBean.usuarioProfessor == true}"
+                                                 value="#{BancaBean.banca.localbanca}"
+                                                 required="true" requiredMessage="Digite o local da banca."  />
+                                    <p:outputLabel value="Data Defesa:"  style="float:right" />
+                                    <p:calendar id="dataDefesa"
+                                                disabled="#{BancaBean.bancaFinalizada or ProfessorBean.usuarioProfessor == true}"
+                                                value="#{BancaBean.banca.databanca}"
+                                                required="true"
+                                                requiredMessage="Inserir data de defesa."
+                                                pattern="dd/MM/yyyy"
+                                                locale="pt" >
+                                    </p:calendar>
+
+                                    <p:outputLabel value="Horário da defesa:" style="text-align:right;" />
+                                    <p:calendar id="horas"
+                                                disabled="#{BancaBean.bancaFinalizada or ProfessorBean.usuarioProfessor == true}"
+                                                value="#{BancaBean.banca.horario}" style="padding-right:5px;"
+                                                maxlength="5" maxHour="24" minHour="6"
+                                                required="true"
+                                                requiredMessage="Inserir horário da defesa."
+                                                locale="pt"
+                                                pattern="HH:mm" timeOnly="true"  >
+                                    </p:calendar>
+                                </h:panelGrid>
+
+                                <br/>
+                                <p:pickList id="pickListFila" style="padding-left:117px"
+                                            disabled="#{BancaBean.bancaFinalizada or ProfessorBean.usuarioProfessor == true}"
+                                            value="#{BancaBean.filaBanca}"
+                                            var="fila" itemLabel="#{fila.nome}"
+                                            itemValue="#{fila}"
+                                            showSourceFilter="true"
+                                            showTargetFilter="true"
+                                            filterMatchMode="contains"
+                                            converter="filaConverter"  >
+
+                                    <f:facet name="sourceCaption">Professores Disponíveis</f:facet>
+                                    <f:facet name="targetCaption">Professores Convidados</f:facet>
+                                    <p:column style="width:65%;text-align:left" >
+                                        <h:outputText value="#{fila.nome}" />
+                                    </p:column>
+                                    <p:column style="width:25%;text-align:center;">
+                                        <h:outputText value="#{fila.dataconfirmacao}"  >
+                                            <f:convertDateTime dateStyle="short" type="date" pattern="dd/MM/yyyy"  />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column style="width:10%;text-align:right">
+                                        <h:outputText value="#{fila.participacoes}" />
+                                    </p:column>
+                                </p:pickList>
+                            </h:panelGrid>
+                            <h:panelGrid id="panelGridFinalizar" 
+                                         columns="3"
+                                         cellpadding="5"
+                                         style="padding-top:10px;padding-right:10px" >
+
+                                <p:commandButton  id="botaoConfirmar"
+                                                  update="growlBanca :formDialog"
+                                                  icon="ui-icon-disk"
+                                                  value="Confirmar"
+                                                  rendered="#{ProfessorBean.usuarioProfessor != true}"
+                                                  disabled="#{BancaBean.bancaFinalizada}"
+                                                  actionListener="#{BancaBean.confirmarSelecao(2)}" >
+                                </p:commandButton>
+
+                                <p:commandButton  id="botaoPrincipalGerarAta"
+                                                  rendered="#{!BancaBean.ativaGerarAta}"
+                                                  disabled="#{BancaBean.ativaGerarAta}"
+                                                  ajax="true"
+                                                  update="growlBanca :formDialog"
+                                                  style="margin-left:5px"
+                                                  icon="ui-icon-note"
+                                                  value="Gerar Ata de Defesa"
+                                                  process="@form"
+                                                  onclick="PF('dlgCabecalho').show();" >
+                                </p:commandButton>
+                                <p:commandButton  id="botaoEnviarEmail"
+                                                  rendered="#{!BancaBean.ativaGerarAta}"
+                                                  disabled="#{BancaBean.ativaGerarAta}"
+                                                  ajax="true"
+                                                  update="growlBanca :formDialog"
+                                                  style="margin-left:5px"
+                                                  icon="ui-icon-mail-closed"
+                                                  value="Email Confirmação"
+                                                  process="@form"
+                                                  onclick="#{BancaBean.confirmacaoBancaEmail(2)}"
+                                                  oncomplete="PF('dlgEmail').show()"
+                                                  >
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+
+                    <!--
+                    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                    DIALOGO CONFIRMAR CONVIDADOS E ENVIAR EMAIL
+                    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                    -->
+                    <p:dialog
+                        header="CONFIRMAR CONVIDADOS"
+                        widgetVar="dlgConfirmacaoConvidado"
+                        width="790"
+                        height="290"
+                        resizable="false" >
+                        <h:form id="formDialog" >
+                            <p:growl id="growlConvidados" />
+                            <p:dataTable id="tabelaConvidados"
+                                         value="#{BancaBean.listaConvidados}"
+                                         var="obj"
+                                         filteredValue="#{BancaBean.filtroConvidados}"
+                                         sortMode="multiple"
+                                         emptyMessage="Nenhum registro encontrado."
+                                         style="width:98%;margin-top:10px"
+                                         >
+                                <f:facet name="header">
+                                    <h:outputText value="Lista de Convidados" style="padding-left:10px;" />
+                                </f:facet>
+                                <p:column id="nome"
+                                          filterBy="#{obj.professorsiape.nome}" filterStyle="width:200px"
+                                          sortBy="#{obj.professorsiape.nome}" headerText="Nome">
+                                    <h:outputText value="#{obj.professorsiape.nome}" />
+                                </p:column>
+                                <p:column id="email"
+                                          filterBy="#{obj.professorsiape.email}" filterStyle="width:200px"
+                                          sortBy="#{obj.professorsiape.email}" headerText="Email">
+                                    <h:outputText value="#{obj.professorsiape.email}" />
+                                </p:column>
+                                <p:column headerText="Confirmar Presença" style="width:60px">
+                                    <p:selectBooleanCheckbox
+                                        disabled="#{BancaBean.bancaFinalizada or ProfessorBean.usuarioProfessor == true}"
+                                        style="margin-left:20px;margin-top:2px"
+                                        value="#{obj.confirmado}">
+                                    </p:selectBooleanCheckbox>
+                                </p:column>
+                                <p:column headerText="Enviado Email" style="width:40px" >
+                                    <p:selectBooleanCheckbox
+                                        style="margin-left:10px"
+                                        value="#{obj.enviadoemail}" disabled="true">
+                                    </p:selectBooleanCheckbox>
+                                </p:column>
+                                <p:column headerText="Enviar Email"  style="width:40px" >
+                                    <p:commandButton 
+                                        update=":formDialog:growlConvidados tabelaConvidados :formEnviarEmail"
+                                        ajax="true"
+                                        style="height:20px;width:30px;margin-left:5px"
+                                        icon="ui-icon-mail-closed"
+                                        process="@form"
+                                        action="#{BancaBean.enviarConvitePorEmail(obj)}"
+                                        oncomplete="PF('dlgEmail').show()" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <p:commandButton  id="botaoSalvarConvidados"
+                                              disabled="#{BancaBean.bancaFinalizada or ProfessorBean.usuarioProfessor == true}"
+                                              style="margin-left:50px;margin-top:10px;"
+                                              icon="ui-icon-disk"
+                                              value="Salvar"
+                                              update="growlConvidados botaoGerarAtaConvidado botaoEnviarEmail"
+                                              actionListener="#{BancaBean.salvarAlteracaoConvidados}" >
+                            </p:commandButton>
+                            <p:commandButton  id="botaoFinalizar"
+                                              disabled="#{BancaBean.bancaFinalizada or ProfessorBean.usuarioProfessor == true}"
+                                              ajax="true"
+                                              style="margin-left:10px"
+                                              icon="ui-icon-circle-check"
+                                              value="Finalizar"
+                                              process="@form"
+                                              update="growlConvidados botaoGerarAtaConvidado botaoEnviarEmail :alteraBanca:status"
+                                              actionListener="#{BancaBean.bancaFinalizar}" >
+                            </p:commandButton>
+
+                            <p:commandButton  id="botaoGerarAtaConvidado"
+                                              disabled="#{BancaBean.ativaGerarAta}"
+                                              ajax="true"
+                                              update="growlConvidados"
+                                              style="margin-left:10px"
+                                              icon="ui-icon-note"
+                                              value="Gerar Ata de Defesa"
+                                              process="@form"
+                                              onclick="PF('dlgCabecalho').show()" >
+                            </p:commandButton>
+
+                            <p:commandButton  id="botaoEnviarEmail"
+                                              disabled="#{BancaBean.ativaGerarAta}"
+                                              ajax="true"
+                                              update="growlConvidados :formEnviarEmail"
+                                              style="margin-left:5px"
+                                              icon="ui-icon-mail-closed"
+                                              value="Email Confirmação"
+                                              process="@form"
+                                              onclick="#{BancaBean.confirmacaoBancaEmail(2)}"
+                                              oncomplete="PF('dlgEmail').show()"
+                                              >
+                            </p:commandButton>
+
+                        </h:form>
+                    </p:dialog>
+
+                    <!--
+                    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                    ''''SELECIONAR COORDENADOR E CAMPUS PARA GERAR ATA
+                    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                    -->
+
+                    <p:dialog header="Cabeçalho do Relatório"
+                              width="490"
+                              height="210" widgetVar="dlgCabecalho"
+                              resizable="false" >
+                        <div align="center" >
+                            <h:form id="opcoesCabecalho">
+                                <p:growl id="growlCabecalho" />
+                                <p:panel id="panelCabecalho" >
+
+                                    <h:panelGrid id="painelLabelCoordenador"  style="margin-top:10px;margin-right:170px"
+                                                 columns="1" cellspacing="0" cellpadding="0">
+                                        <h:outputLabel value="Coordenador de Estagíos (Atual): " style="float:left" />
+                                    </h:panelGrid>
+                                    <h:panelGrid id="painelCoordenador" style="margin-left:24px;margin-top:10px;"
+                                                 columns="1" cellspacing="0" cellpadding="0">
+                                        <p:selectOneMenu id="coordenadorEstagio"
+                                                         value="#{RelatorioBean.coordenador.siape}"
+                                                         filter="true" filterMatchMode="startsWith"
+                                                         panelStyle="width:345px"
+                                                         style="width:380px;"
+                                                         converter="javax.faces.Integer" >
+                                            <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+                                            <f:selectItems value="#{TrabalhoBean.listaCoordenador}"  var="cor" itemValue="#{cor.value}" itemLabel="#{cor.label}"   />
+
+                                            <p:ajax event="change" process="@this"
+                                                    listener="#{RelatorioBean.coordenadorListener}" />
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid id="painelLabelCampus"  style="margin-top:10px;margin-right:305px"
+                                                 columns="1" cellspacing="0" cellpadding="0">
+                                        <h:outputLabel value="Campus: " style="float:right" />
+                                    </h:panelGrid>
+
+                                    <h:panelGrid id="painelCampus" style="margin-left:24px;margin-top:10px;margin-bottom:20px"
+                                                 columns="1" cellspacing="0" cellpadding="0">
+                                        <p:selectOneMenu id="campus"
+                                                         value="#{RelatorioBean.campus.idcampus}"
+                                                         filter="true" filterMatchMode="startsWith"
+                                                         panelStyle="width:345px"
+                                                         style="width:380px;"
+                                                         converter="javax.faces.Integer" >
+                                            <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+                                            <f:selectItems value="#{TrabalhoBean.listaCampus}"  var="o" itemValue="#{o.value}" itemLabel="#{o.label}"   />
+                                            <p:ajax event="change" process="@this"
+                                                    listener="#{RelatorioBean.campusListener}" />
+                                        </p:selectOneMenu>
+
+                                        <p:commandButton  id="botaoGerarAtaFinal"
+                                                          ajax="false"
+                                                          update="growlCabecalho"
+                                                          style="margin-top:20px"
+                                                          icon="ui-icon-note"
+                                                          value="Gerar Ata de Defesa"
+                                                          actionListener="#{BancaBean.gerarAtaDeDefesa(RelatorioBean.coordenador,RelatorioBean.campus)}" >
+                                        </p:commandButton>
+
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:form>
+                        </div>
+                    </p:dialog>
+
+                    <!--
+                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                       Enviar email de confirmação banca
+                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                    -->
+                    <p:dialog header="Email Confirmação"
+                              width="650"
+                              height="450"
+                              widgetVar="dlgEmail"
+                              resizable="false" >
+                        <div align="center" >
+                            <h:form id="formEnviarEmail">
+                                <p:growl id="growlNovoEmail" />
+
+                                <h:panelGrid id="gridEnviar" columns="2" style="margin-top:8px" >
+                                    <h:outputLabel value="De:" style="float:right" />
+                                    <p:inputText id="de"  size="40"
+                                                 value="#{BancaBean.emailConfig.email}"
+                                                 disabled="true"
+                                                 required="true" requiredMessage="Digite o Email."  />
+
+                                    <h:outputLabel value="Para:" style="float:right" />
+                                    <p:inputText id="para"  size="80"
+                                                 value="#{BancaBean.destinatarios}"
+                                                 required="true" requiredMessage="Digite o Destinatário."  />
+                                    <h:outputLabel value="Titulo:" style="float:right" />
+                                    <p:inputText id="titulo"  size="80"
+                                                 value="#{BancaBean.titulo}"
+                                                 required="true" requiredMessage="Digite o Titulo."  />
+
+                                </h:panelGrid>
+                                <h3 style="padding-top:5px;padding-bottom:5px">Observação: Separar emails dos destinatários por  ( ; ) </h3>
+                                <p:editor id="editor" widgetVar="editorWidget"
+                                          value="#{BancaBean.mensagem}" width="610"
+                                          required="true" requiredMessage="Digite a Mensagem."  />
+                                <h:panelGrid columns="2" style="margin-top: 10px">
+                                    <p:commandButton value="Enviar"
+                                                     update="growlNovoEmail"
+                                                     actionListener="#{BancaBean.enviarEmail()}"
+                                                     icon="ui-icon-disk" />
+                                    <p:commandButton value="Excluir" type="button"
+                                                     onclick="PF('editorWidget').clear();"
+                                                     icon="ui-icon-close" />
+                                </h:panelGrid>
+                            </h:form>
+                        </div>
+                    </p:dialog>
+
+                    <!--
+                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                    -->
+                    <h:form id="mudarPagina" prependId="false" rendered="#{ProfessorBean.usuarioProfessor != true}"  >
+                        <p:panel id="panelOpcoes"  style="margin-bottom:10px;width:98%;" >
+                            <h:panelGrid columns="2"  columnClasses="coluna1, coluna2">
+                                <p:column id="coluna1" >
+                                    <p:commandLink value="Tela Principal" action="sistema.xhtml" ajax="false"   />
+                                </p:column>
+                                <p:column id="coluna2">
+                                    <p:commandLink value="Visualizar Trabalhos" action="visualizarTrabalho.xhtml" ajax="false"  />
+                                </p:column>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

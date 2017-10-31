@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <h:form id="formMenu">
+            <p:growl id="growlMenu" />
+            <p:menu  style="min-width:200px;width:200px;height:100%" >
+                <p:submenu label="Sistema">
+                    <p:menuitem value="Tela Pricipal"  outcome="/views/sistema" icon="ui-icon-home" />
+                    <p:menuitem value="Logoff"
+                                ajax="false"
+                                action="#{LoginBean.logoff}"
+                                icon="ui-icon-close"
+                                />
+                </p:submenu>
+                <p:submenu label="Professor" >
+                    <p:menuitem value="Meus Dados" ajax="false" action="#{ProfessorBean.direcionaAlterarMeusDadosProfessor}"  icon="ui-icon-disk" />
+                    <p:menuitem value="Orientações" action="#{TrabalhoBean.direcionaVisualizarOrientandos}"   icon="ui-icon-disk" />
+                    <p:menuitem value="Participação em Bancas" action="#{BancaBean.direcionaVisualizarBancaPresente}"   icon="ui-icon-disk" />
+                </p:submenu>
+                <p:submenu label="Coordenador" >
+                    <p:menuitem value="Aluno" action="#{AlunoBean.direcionaVisualizarAluno()}"  icon="ui-icon-disk" />
+                    <p:menuitem value="Área do Estágio" action="#{AssuntoBean.direcionaVisualizarAssunto()}"  icon="ui-icon-disk" />
+                    <p:menuitem value="Campus" action="#{CampusBean.direcionaVisualizarCampus()}"   icon="ui-icon-disk" />
+                    <p:menuitem value="Curso" action="#{CursoBean.direcionaVisualizarCurso()}"   icon="ui-icon-disk" />
+                    <p:menuitem value="Empresa" action="#{EmpresaBean.direcionaVisualizarEmpresa()}"   icon="ui-icon-disk" />
+                    <p:menuitem value="Professor"  action="#{ProfessorBean.direcionaVisualizarProfessor()}" icon="ui-icon-disk" />
+                    <p:menuitem value="Trabalho" action="#{TrabalhoBean.direcionaVisualizarTrabalho()}"  icon="ui-icon-disk" />
+                </p:submenu>
+                <p:submenu label="Informações">
+                    <p:menuitem value="Importação" action="#{ImportarBean.direcionaVisualizarImportacao}" ajax="false" icon="ui-icon-arrowstop-1-n"  />
+                    <p:menuitem value="Relatórios" action="#{RelatorioBean.direcionaVisualizarRelatorio}" ajax="false" icon="ui-icon-note"  />
+                </p:submenu>
+                <p:submenu label="Configuração"  >
+                    <p:menuitem value="Email" action="#{EmailBean.direcionaVisualizarEmail}" ajax="false" icon="ui-icon-mail-closed"  />
+                </p:submenu>
+                <p:submenu label="Links Úteis">
+                    <p:menuitem value="Estágio BCC"  ajax="false" icon="ui-icon-link" url="http://www.portal.facom.ufu.br/node/134" target="_blank"  />
+                    <p:menuitem value="Estágio BSI"  ajax="false" icon="ui-icon-link" url="http://www.portal.facom.ufu.br/node/155" target="_blank" />
+                </p:submenu>
+            </p:menu>
+        </h:form>
+    </h:body>
+</html>

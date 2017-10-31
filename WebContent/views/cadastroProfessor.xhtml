@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.verificaAcesso()}" >
+                <div align="center" >
+
+                    <!--
+                   ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                   FORMULARIO PROFESSOR
+                   ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                    -->
+                    <h:form id="formCadastroProfessor">
+                        <p:tabView widgetVar="tabProfessor" styleClass="painelGeral" >
+                            <p:tab id="dadosProfessor" title="Professor">
+                                <p:growl id="growlProfessor" />
+                                <h:panelGrid id="grid" columns="2" style="margin-top:8px"   >
+                                    <h:outputLabel value="Nome:" style="float:right" />
+                                    <p:inputText id="nome"  size="40" value="#{ProfessorBean.login.professorsiape.nome}"
+                                                 required="true" requiredMessage="Digite Nome."  />
+                                    <h:outputLabel value="Siape:" style="float:right" />
+                                    <p:inputText id="siape"  size="40"
+                                                 value="#{ProfessorBean.login.professorsiape.siape}"
+                                                 required="true" requiredMessage="Digite o Nº de Siape."  />
+
+                                    <h:outputLabel value="Email:" style="float:right" />
+                                    <p:inputText id="email" size="40" value="#{ProfessorBean.login.professorsiape.email}"
+                                                 required="true" requiredMessage="Digite o Email." />
+
+
+                                    <h:outputLabel value="Telefone:" style="float:right" />
+                                    <p:inputMask id="telefone" size="40"  value="#{ProfessorBean.login.professorsiape.telefone}" mask="(99) 9999-9999" required="false"/>
+
+                                    <h:outputLabel value="Perfil:" style="float:right" />
+
+                                    <p:selectOneMenu id="perfil" required="true"
+                                                     value="#{ProfessorBean.login.professorsiape.perfilidperfil.idperfil}"
+                                                     converter="javax.faces.Integer"
+                                                     style="width:235px;" requiredMessage="Selecione o Perfil." >
+                                        <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="Coordenador de Estágio" itemValue="1"  />
+                                        <f:selectItem itemLabel="Professor" itemValue="2" />
+                                    </p:selectOneMenu >
+
+                                    <h:outputLabel value="Senha:" style="float:right"  />
+                                    <p:password id="senha" feedback="true" style="width:225px;" value="#{ProfessorBean.login.senha}"
+                                                requiredMessage="Digite Senha."
+                                                weakLabel="Fácil" goodLabel="Bom" strongLabel="Forte"
+                                                promptLabel="Digite Senha" required="true"  />
+                                    <p:commandButton  style="margin-top:20px;"
+                                                      icon="ui-icon-arrowthick-1-e"
+                                                      value="Prosseguir"
+                                                      update="growlProfessor"
+                                                      process="dadosProfessor"
+                                                      actionListener="#{ProfessorBean.isValidoCadastro(0)}" />
+                                </h:panelGrid>
+                                <p:focus for="nome" />
+                            </p:tab>
+                            <p:tab id="dadosAssinatura" title="Assinatura">
+                                <p:growl id="growlProfessorAssinatura" />
+                                <p:editor id="editor" widgetVar="editorWidget" style="padding-top:20px;padding-bottom:10px"
+                                          value="#{ProfessorBean.assinatura}" width="610"
+                                          required="true" requiredMessage="Digite a Assinatura."  />
+                                <h:panelGrid columns="2" style="margin-top: 10px">
+                                    <p:commandButton value="Prosseguir"
+                                                     update="growlProfessorAssinatura"
+                                                     process="dadosAssinatura"
+                                                     actionListener="#{ProfessorBean.isValidoAssinatura(0)}"
+                                                     icon="ui-icon-arrowthick-1-e" />
+                                    <p:commandButton value="Limpar" type="button"
+                                                     onclick="PF('editorWidget').clear();"
+                                                     icon="ui-icon-close" />
+                                </h:panelGrid>
+
+                            </p:tab>
+
+                            <p:tab id="dadosDisponibilidade" title="Disponibilidade">
+                                <p:growl id="growlProfessorDisponibilidade" />
+                                <p:dataTable id="disponibilidade"
+                                             value="#{ProfessorBean.listaDisponibilidade}"
+                                             var="obj"
+                                             emptyMessage="Nenhum registro encontrado.">
+                                    <f:facet name="header">
+                                        <h:outputText value="Disponibilidade" style="padding-left:20px;" />
+                                    </f:facet>
+                                    <p:column id="dia"
+                                              style="width:100px"
+                                              headerText="Dia">
+                                        <h:outputText value="#{obj.diasemana}"  />
+                                    </p:column>
+                                    <p:column id="manha"
+                                              headerText="Manhã">
+                                        <p:selectBooleanCheckbox value="#{obj.manha}"
+                                                                 style="width:30px;padding-left:70px;">
+                                        </p:selectBooleanCheckbox>
+                                    </p:column>
+                                    <p:column id="tarde"
+                                              headerText="Tarde">
+                                        <p:selectBooleanCheckbox value="#{obj.tarde}"
+                                                                 style="width:30px;padding-left:70px;">
+                                        </p:selectBooleanCheckbox>
+                                    </p:column>
+                                    <p:column id="noite"
+                                              headerText="Noite">
+                                        <p:selectBooleanCheckbox value="#{obj.noite}"
+                                                                 style="width:30px;padding-left:70px;">
+                                        </p:selectBooleanCheckbox>
+                                    </p:column>
+
+                                </p:dataTable>
+
+                                <h:panelGrid columns="1" style="margin-bottom:10px;margin-top:20px">
+                                    <h:outputLabel value="Enviar email para avisar do cadastro no sistema?" />
+                                </h:panelGrid>
+                                <h:panelGrid columns="2" style="margin-bottom:10px">
+                                    <h:outputText value="Enviar Email: "  />
+                                    <p:selectOneRadio id="options" value="#{ProfessorBean.enviarEmail}" >
+                                        <f:selectItem itemLabel="Sim" itemValue="sim" />
+                                        <f:selectItem itemLabel="Não" itemValue="nao" />
+                                    </p:selectOneRadio>
+                                </h:panelGrid>
+                                <p:commandButton
+                                    icon="ui-icon ui-icon-disk"
+                                    value="Salvar"
+                                    style=""
+                                    update="growlProfessor,growlProfessorDisponibilidade"
+                                    actionListener="#{ProfessorBean.cadastrar}" >
+                                </p:commandButton>
+
+                            </p:tab>
+                        </p:tabView>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

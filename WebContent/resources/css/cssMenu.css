@@ -1,0 +1,114 @@
+
+.select-color{ 
+    width:300px; 
+    margin:20px 0 0 0; 
+    height:50px; 
+    position:absolute; 
+    top:0px; 
+    left:0px;
+}
+
+#max {list-style:none; margin:5px 0 0 25px;}
+#max li {float:left; margin-right:3px; padding:2px;}
+#max li.current, #max li.hover { padding:1px; border:1px solid;}
+#max li:hover { padding:1px; border:1px solid; }
+#max li a {
+    text-indent:-999em; 
+    float:left; 
+    background:url(../resources/imagens/color-bg.png) no-repeat; 
+    display:block; 
+    width:20px; 
+    overflow:hidden;
+    height:20px;
+}
+
+#bodyMod{
+    position:relative;
+    /*color:#F0F0F0;*/
+    font-family: serif,Verdana, Arial, Helvetica, sans-serif;
+    font-size:12px;
+    line-height:140%;
+}
+
+#contentMenu{
+    float: left;
+    margin:10px auto;
+    text-align: left;
+    width:200px;
+}
+
+/* Styles for fmt #1 */
+#fmt1{
+    margin:0; 
+    float:left;
+    padding:0;
+    width:200px;
+    list-style-type:none;
+    line-height:120%;
+}
+#fmt1 .closed{
+    background-image:url(../resources/imagens/ha-down.gif);
+}
+
+#fmt1 .closed,#fmt1 .opened{
+    padding-right:10px;
+    background-position:98% 50%;
+    background-repeat:no-repeat;
+}
+#fmt1 .header{
+    background-color:#c48535;
+}
+#fmt1 .opened{
+    background-image:url(../resources/imagens/ha-up.gif);
+}
+#fmt1 a{
+    display:block;
+    font-weight:bold;
+    text-decoration:none;
+}
+#fmt1 a.hover{
+    border-top:1px solid #b7c5d0;
+    border-bottom:1px solid #8c5f26;
+    background-color:#8c5f26;
+    color:#FFFFFF;
+}
+#fmt1 ul{
+    overflow: hidden;
+    margin:0;
+    padding:0;
+}
+#fmt1 li{
+    margin:0;
+    padding:0;
+    list-style-type:none;
+    background-color:#8c5f26;
+    color:#FFFFFF;
+}
+#fmt1 li a{
+    padding:2px 10px 2px 4px;
+    border-top:1px solid whitesmoke;
+    border-left:1px solid whitesmoke;
+    border-right:1px solid whitesmoke;
+    border-bottom:1px solid whitesmoke;
+    background-color:#c48535;
+    color:#FFFFFF;
+}
+#fmt1 li.active a,#fmt1 li li.active a{
+    border-top:1px solid whitesmoke;
+    border-bottom:1px solid whitesmoke;
+    border-left:1px solid whitesmoke;
+    border-right:1px solid whitesmoke;
+    background-color:#8c5f26;
+    color:#FFFFFF; font-size:10px;
+}
+#fmt1 li.active li a,#fmt1 li li a{
+    padding:2px 4px 2px 8px;
+    border-top:1px solid #63869f;
+    border-left:1px solid #696969;
+    border-right:1px solid #63869f;
+    border-bottom:1px solid #174566;
+    background-color:#174566;
+    color:#FFFFFF;
+    font-size:10px;
+}
+

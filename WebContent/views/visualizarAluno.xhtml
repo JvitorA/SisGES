@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.verificaAcesso()}" >
+                <div align="center">
+                    <h:form id="formVisualizarAluno" >
+                        <p:growl id="growlVisualzarAluno" />
+                        <p:dataTable id="tabelaAluno"
+                                     value="#{AlunoBean.listaAlunos}"
+                                     var="obj"
+                                     filteredValue="#{AlunoBean.filtroAlunos}"
+                                     paginator="true"
+                                     rows="10"
+                                     sortMode="multiple"
+                                     emptyMessage="Nenhum registro encontrado."
+                                     >
+                            <f:facet name="header">
+                                <h:outputText value="Alunos" style="padding-left:100px;" />
+                                <p:commandLink action="cadastroAluno.xhtml"  ajax="false"
+                                               value="Cadastrar Aluno" 
+                                               style="float: right;" />
+
+                            </f:facet>
+                            <p:column id="matricula" 
+                                      filterBy="#{obj.matricula}" style="width:140px" 
+                                      sortBy="#{obj.matricula}" headerText="Matricula">
+                                <h:outputText value="#{obj.matricula}"  />
+                            </p:column>
+                            <p:column id="nome"
+                                      filterBy="#{obj.nome}" filterStyle="width:80%"
+                                      sortBy="#{obj.nome}" headerText="Nome">
+                                <h:outputText value="#{obj.nome}" />
+                            </p:column>
+                            <p:column id="email"
+                                      filterBy="#{obj.email}" filterStyle="width:80%"
+                                      sortBy="#{obj.email}" headerText="Email">
+                                <h:outputText value="#{obj.email}" />
+                            </p:column>
+                            <p:column id="telefone" 
+                                      filterBy="#{obj.telefone}"  filterStyle="width:80%" 
+                                      filterMatchMode="contains"
+                                      style="width:110px"
+                                      sortBy="#{obj.telefone}" headerText="Telefone">
+                                <h:outputText value="#{obj.telefone}" />
+                            </p:column>
+                            <p:column id="nomeCurso"
+                                      filterBy="#{obj.cursoidcurso.nomecurso}" filterStyle="width:80%"
+                                      style="width:160px"
+                                      sortBy="#{obj.cursoidcurso.nomecurso}" headerText="Curso">
+                                <h:outputText value="#{obj.cursoidcurso.nomecurso}" />
+                            </p:column>
+                            <p:column headerText="Alterar" style="width:40px" exportable="false">
+                                <div align="center">
+                                    <p:commandButton
+                                        ajax="false" 
+                                        style="height:20px;width:30px;"
+                                        icon="ui-icon-refresh" 
+                                        action="#{AlunoBean.direcionaAlterarAluno(obj)}" >
+                                    </p:commandButton>
+                                </div>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandLink style="float: left;padding:2px;" ajax="false" >
+                            <p:graphicImage value="/resources/images/excel.jpg" title="Exportar para Excel" width="24"/>
+                            <p:dataExporter type="xls" target="tabelaAluno" fileName="Alunos" />
+                        </p:commandLink>
+                        <p:commandLink style="float: left;padding:2px;"  ajax="false" 
+                                       actionListener="#{RelatorioBean.gerarRelatorioAluno}"  >
+                            <p:graphicImage value="/resources/images/pdf.png" title="Exportar para PDF" width="24"/>
+                        </p:commandLink>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

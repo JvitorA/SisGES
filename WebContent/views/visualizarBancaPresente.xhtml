@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.verificaAcesso()}" >
+                <div align="center">
+                    <h:form id="formVisualizarBancaPresente" prependId="false" >
+                        <p:dataTable id="tabelaBancaPresente"
+                                     value="#{BancaBean.listaBancaPresente}"
+                                     var="obj"
+                                     filteredValue="#{BancaBean.filtroBancaPresente}"
+                                     paginator="true"
+                                     rows="10"
+                                     sortMode="multiple"
+                                     emptyMessage="Nenhum registro encontrado."
+                                     >
+                            <f:facet name="header">
+                                <h:outputText value="Bancas com Presença Confirmada" style="padding-left:20px;" />
+                            </f:facet>
+                            <p:column id="aluno"
+                                      filterBy="#{obj.bancaidbanca.trabalhoidtrabalho.alunomatricula.nome}" filterStyle="width:80%"
+                                      style="width:150px"
+                                      sortBy="#{obj.bancaidbanca.trabalhoidtrabalho.alunomatricula.nome}" headerText="Aluno">
+                                <h:outputText value="#{obj.bancaidbanca.trabalhoidtrabalho.alunomatricula.nome}"  />
+                            </p:column>
+                            <p:column id="localBanca"
+                                      filterBy="#{obj.bancaidbanca.localbanca}" filterStyle="width:80%"
+                                      style="width:150px"
+                                      sortBy="#{obj.bancaidbanca.localbanca}" headerText="Local da Banca">
+                                <h:outputText value="#{obj.bancaidbanca.localbanca.toUpperCase()}"  />
+                            </p:column>
+
+                            <p:column id="dataBanca"
+                                      filterBy="#{obj.bancaidbanca.databanca}" filterStyle="width:80%"
+                                      style="width:75px;text-align:center;"
+                                      sortBy="#{obj.bancaidbanca.databanca}" headerText="Data da Banca">
+                                <h:outputText value="#{FormatarBean.parseDataBR(obj.bancaidbanca.databanca)}"  />
+                            </p:column>
+
+                            <p:column id="horarioBanca"
+                                      filterBy="#{obj.bancaidbanca.horario}" filterStyle="width:80%"
+                                      style="width:85px;text-align:center;"
+                                      sortBy="#{obj.bancaidbanca.horario}" headerText="Horário da Banca">
+                                <h:outputText value="#{obj.bancaidbanca.horario}"  />
+                            </p:column>
+
+                            <p:column id="statusBanca"
+                                      style="width:90px;text-align:center;"
+                                      filterBy="#{obj.bancaidbanca.statusidstatus.tipostatus}" filterStyle="width:80%"
+                                      sortBy="#{obj.bancaidbanca.statusidstatus.tipostatus}" headerText="Status da Banca">
+                                <h:outputText value="#{obj.bancaidbanca.statusidstatus.tipostatus}"  />
+                            </p:column>
+
+
+                            <p:column headerText="Detalhes do Trabalho" style="width:30px" exportable="false" >
+                                <div align="center">
+                                    <p:commandButton id="botaoAlterarTrabalho" ajax="false"
+                                                     process="@this"
+                                                     style="height:20px;width:30px;margin-left:10px"
+
+                                                     icon="ui-icon-search"
+                                                     action="#{TrabalhoBean.direcionaAlterarTrabalho(obj.bancaidbanca.trabalhoidtrabalho)}" />
+                                </div>
+                            </p:column>
+                            <p:column headerText="Detalhes da Banca" style="width:35px" exportable="false" >
+                                <div align="center">
+                                    <p:commandButton id="botaoAlterarBanca"
+                                                     ajax="false"
+                                                     style="height:20px;width:30px;margin-left:10px"
+
+                                                     icon="ui-icon-search"
+                                                     action="#{TrabalhoBean.direcionaAlterarBanca(obj.bancaidbanca.trabalhoidtrabalho)}"
+                                                     rendered="#{BancaBean.existeBanca(obj.bancaidbanca.trabalhoidtrabalho)}" />
+                                </div>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandLink style="float: left;padding:2px" ajax="false" >
+                            <p:graphicImage value="/resources/images/excel.jpg" title="Exportar para Excel" width="24"/>
+                            <p:dataExporter type="xls" target="tabelaBancaPresente" fileName="BancaPresente" />
+                        </p:commandLink>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

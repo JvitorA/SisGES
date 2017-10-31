@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.loginAtual}" >
+                <div align="center">
+                    <h:form id="formAlteraSenha" prependId="false">
+                        <p:growl id="growlAlterarSenha" />
+                        <p:panel id="panel" header="Alterar Login" styleClass="painelGeral" >
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Siape:" />
+                                <p:inputText id="usuario" value="#{LoginBean.login.professorsiape.siape}" disabled="true" />
+                                <h:outputLabel value="Antiga Senha:" />
+                                <p:password id="senhaAntiga" feedback="false" value="#{LoginBean.login.senha}" required="true"
+                                            requiredMessage="Digite Senha Antiga."  />
+                                <h:outputLabel value="Nova Senha:" />
+                                <p:password id="senhaNova"  feedback="true" value="#{LoginBean.novaSenha}" required="true"
+                                            requiredMessage="Digite Senha."  weakLabel="Fácil"
+                                            goodLabel="Bom" strongLabel="Forte" promptLabel="Força da Senha"  />
+                                <h:outputLabel value="Repita Nova Senha:" />
+                                <p:password id="senhaNovaCopy"  feedback="false" value="#{LoginBean.novaSenhaCopy}" required="true"
+                                            requiredMessage="Repita Nova Senha."  />
+                                <p:commandButton id="botaoAlteraSenha"
+                                                 style="margin-top:20px;" 
+                                                 value="Salvar" action="#{LoginBean.alterarSenha}"
+                                                 update="growlAlterarSenha"  />
+                                <p:focus for="usuario" />
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

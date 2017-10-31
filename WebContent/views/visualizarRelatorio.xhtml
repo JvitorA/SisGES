@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.verificaAcesso()}" >
+                <div align="center" >
+                    <h:form id="visualizarRelatorio">
+                        <p:growl id="growlRelatorio" />
+                        <p:panel id="panel" header="Relatórios" styleClass="painelGeral" style="width:750px;" >
+
+                            <h:panelGrid id="grid" columns="2"
+                                         cellspacing="0" cellpadding="0"
+                                         style="margin-top:8px;margin-left:25px;"   >
+
+                                <h:panelGrid id="painelLabelOpcao"
+                                             columns="1" cellspacing="0" cellpadding="0">
+                                    <h:outputLabel value="Opções: " style="float:right" />
+                                </h:panelGrid>
+                                <h:panelGrid id="painelOpcao" style="margin-left:32px;"
+                                             columns="1" cellspacing="0" cellpadding="0">
+                                    <p:selectOneMenu id="opcaoRelatorio"
+                                                     value="#{RelatorioBean.nomeRelatorio}"
+                                                     style="width:395px"
+                                                     requiredMessage="Selecione o relatório."
+                                                     required="true" >
+                                        <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="Relatório Participação em Bancas" itemValue="participacaoEmBanca" />
+                                        <f:selectItem itemLabel="Relatório Nº de Orientações por Professor" itemValue="professorOrientacoes" />
+                                        <f:selectItem itemLabel="Relatório Anual de Atividade" itemValue="anualAtividades" />
+                                        <p:ajax event="change" process="@this"
+                                                listener="#{RelatorioBean.relatorioListener()}"
+                                                update="painelLabelProfessor painelProfessor painelPeriodo painelLabelCurso painelCurso painelLabelAno painelAno painelLabelCoordenador painelCoordenador painelLabelCampus painelCampus" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid  columns="2" cellspacing="0" cellpadding="0"
+                                          style="margin-left:22px;"   >
+
+                                <h:panelGrid id="painelLabelCurso" style="margin-left:2px;"
+                                             columns="1" cellspacing="0" cellpadding="0">
+                                    <h:outputLabel value="Cursos: " rendered="#{RelatorioBean.exibirCurso}" style="float:right" />
+                                </h:panelGrid>
+                                <h:panelGrid id="painelCurso" style="margin-left:35px;margin-top:5px"
+                                             columns="1" cellspacing="0" cellpadding="0">
+                                    <p:selectOneMenu id="curso"
+                                                     value="#{RelatorioBean.curso.idcurso}"
+                                                     filter="true" filterMatchMode="startsWith"
+                                                     rendered="#{RelatorioBean.exibirCurso}"
+                                                     panelStyle="width:345px"
+                                                     style="width:395px;"
+                                                     converter="javax.faces.Integer" >
+                                        <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems  value="#{TrabalhoBean.listaCursos}"  var="c" itemValue="#{c.value}" itemLabel="#{c.label}"  />
+                                        <p:ajax event="change" process="@this"
+                                                listener="#{RelatorioBean.cursoListener}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+
+                                <h:panelGrid id="painelLabelAno" style="margin-left:2px;"
+                                             columns="1" cellspacing="0" cellpadding="0">
+                                    <h:outputLabel value="Ano: " rendered="#{RelatorioBean.exibirAno}" style="float:right" />
+                                </h:panelGrid>
+
+                                <h:panelGrid id="painelAno" style="margin-left:35px;margin-top:5px"
+                                             columns="1" cellspacing="0" cellpadding="0">
+                                    <p:selectOneMenu id="ano"
+                                                     value="#{RelatorioBean.ano}"
+                                                     filter="true" filterMatchMode="startsWith"
+                                                     rendered="#{RelatorioBean.exibirAno}"
+                                                     panelStyle="width:345px"
+                                                     style="width:395px;"
+                                                     converter="javax.faces.Integer" >
+                                        <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems value="#{TrabalhoBean.listagemAno}"  var="a" itemValue="#{a.value}" itemLabel="#{a.label}"   />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+
+
+                                <h:panelGrid id="painelLabelProfessor"
+                                             columns="1" cellspacing="0" cellpadding="0">
+                                    <h:outputLabel value="Professores: " rendered="#{RelatorioBean.exibirProfessor}"
+                                                   style="float:right" />
+                                </h:panelGrid>
+                                <h:panelGrid id="painelProfessor" style="margin-left:12px;margin-top:2px;"
+                                             columns="1" cellspacing="0" cellpadding="0">
+
+                                    <p:selectOneMenu id="professor"
+                                                     value="#{RelatorioBean.professor.siape}"
+                                                     filter="true" filterMatchMode="startsWith"
+                                                     rendered="#{RelatorioBean.exibirProfessor}"
+                                                     style="width:395px;"
+                                                     converter="javax.faces.Integer" >
+                                        <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems value="#{TrabalhoBean.listaProfessor}"  var="o" itemValue="#{o.value}" itemLabel="#{o.label}"   />
+                                        <p:ajax event="change" process="@this"
+                                                listener="#{RelatorioBean.professorListener}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid id="painelPeriodo"  columns="4"
+                                         cellspacing="0" cellpadding="0"
+                                         style="margin-left:23px;margin-top:12px;padding-bottom:15px" >
+                                <p:outputLabel value="Data Inicíal:"  style="float:right"
+                                               rendered="#{RelatorioBean.exibirPeriodo}" />
+                                <p:calendar id="dataInicial" style="padding-left:14px"
+                                            value="#{RelatorioBean.dataInicial}"
+                                            rendered="#{RelatorioBean.exibirPeriodo}"
+                                            pattern="dd/MM/yyyy"
+                                            locale="pt" >
+                                </p:calendar>
+                                <p:outputLabel value="Data Final:"  style="float:right;padding-left:7px"
+                                               rendered="#{RelatorioBean.exibirPeriodo}" />
+                                <p:calendar id="dataFinal" style="padding-left:4px"
+                                            value="#{RelatorioBean.dataFinal}"
+                                            rendered="#{RelatorioBean.exibirPeriodo}"
+                                            pattern="dd/MM/yyyy"
+                                            locale="pt" >
+                                </p:calendar>
+                            </h:panelGrid>
+
+
+                            <h:panelGrid id="painelLabelCoordenador"  style="margin-left:24px;margin-top:10px;"
+                                         columns="1" cellspacing="0" cellpadding="0">
+                                <h:outputLabel value="Coordenador de Estagíos (Atual): " rendered="#{RelatorioBean.exibirCoordenador}" style="float:right" />
+                            </h:panelGrid>
+                            <h:panelGrid id="painelCoordenador" style="margin-left:24px;margin-top:10px;"
+                                         columns="1" cellspacing="0" cellpadding="0">
+                                <p:selectOneMenu id="coordenador"
+                                                 value="#{RelatorioBean.coordenador.siape}"
+                                                 filter="true" filterMatchMode="startsWith"
+                                                 rendered="#{RelatorioBean.exibirCoordenador}"
+                                                 panelStyle="width:345px"
+                                                 style="width:380px;"
+                                                 converter="javax.faces.Integer" >
+                                    <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{TrabalhoBean.listaCoordenador}"  var="o" itemValue="#{o.value}" itemLabel="#{o.label}"   />
+                                    <p:ajax event="change" process="@this"
+                                            listener="#{RelatorioBean.coordenadorListener}" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+
+
+                            <h:panelGrid id="painelLabelCampus"  style="margin-left:24px;margin-top:10px;"
+                                         columns="1" cellspacing="0" cellpadding="0">
+                                <h:outputLabel value="Campus: " rendered="#{RelatorioBean.exibirCampus}" style="float:right" />
+                            </h:panelGrid>
+
+
+                            <h:panelGrid id="painelCampus" style="margin-left:24px;margin-top:10px;"
+                                         columns="1" cellspacing="0" cellpadding="0">
+                                <p:selectOneMenu id="campus"
+                                                 value="#{RelatorioBean.campus.idcampus}"
+                                                 filter="true" filterMatchMode="startsWith"
+                                                 rendered="#{RelatorioBean.exibirCampus}"
+                                                 panelStyle="width:345px"
+                                                 style="width:380px;"
+                                                 converter="javax.faces.Integer" >
+                                    <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{TrabalhoBean.listaCampus}"  var="o" itemValue="#{o.value}" itemLabel="#{o.label}"   />
+                                    <p:ajax event="change" process="@this"
+                                            listener="#{RelatorioBean.campusListener}" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+
+                            <!-- ##################################################  -->
+                            <p:commandButton id="botaoGerarRelatorio"
+                                             style="margin-top:20px;margin-left:20px;"
+
+                                             icon="ui-icon-document"
+                                             value="Gerar"
+                                             ajax="false"
+                                             process="@form"
+                                             actionListener="#{RelatorioBean.gerarRelatorio}"
+                                             update="growlRelatorio" />
+                            <!-- ##################################################  -->
+                        </p:panel>
+                        <p:focus for="opcaoRelatorio" />
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

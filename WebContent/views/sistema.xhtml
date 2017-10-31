@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"  
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.loginAtual}" >
+                <h:form>
+                    <div align="center">
+                        <h1>Bem Vindo,
+                            <h:outputLabel value="#{LoginBean.login.professorsiape.nome}" />!
+                        </h1>
+                        <h3>Sistema para Gerenciamento de Estágios Supervisionados</h3>
+                        <p:panel id="panel2" style="margin-bottom:10px;width:50%;min-width:500px;"  >
+                            <h:panelGrid columns="2"  columnClasses="coluna1, coluna2">
+                                <p:column id="coluna1" >
+                                    <p:commandLink value="Alterar seus dados?" action="alteraLogin.xhtml" ajax="false"   />
+                                </p:column>
+                                <p:column id="coluna2">
+                                    <p:commandLink value="Alterar sua senha?" action="alteraSenha.xhtml" ajax="false"  />
+                                </p:column>
+                            </h:panelGrid>
+                        </p:panel>
+                    </div>
+                </h:form>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

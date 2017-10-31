@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="./../templates/templateLogoff.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <div align="center">
+                <p:dialog header="ESQUECEU A SENHA?" widgetVar="dlgEsqueceuSenha" resizable="false" >
+                    <h:form id="formDialogTrocaSenha">
+                        <p:growl id="growlEsqueceuSenha" />
+                        <h:panelGrid columns="1" style="margin-bottom:10px">
+                            <h:outputLabel value="Informe seu Siape(somente números) e enviaremos uma nova senha por email." />
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" style="margin-bottom:10px">
+                            <h:outputLabel value="Siape:" />
+                            <p:inputText  value="#{LoginBean.login.professorsiape.siape}" size="30" required="true" requiredMessage="Digite o Siape" />
+                        </h:panelGrid>
+                        <p:commandButton id="trocar"
+                                         value="Enviar"
+                                         update="growlEsqueceuSenha"
+                                         actionListener="#{LoginBean.solicitacaoTrocaSenha}"  />
+                    </h:form>
+                </p:dialog>
+
+
+                <h:form id="login" >
+                    <p:growl id="growlLogin" />
+                    <p:panel id="panel" header="Login" styleClass="painelLogin" style="width:525px;min-width:525px;max-width:525px;" >
+                        <h:panelGrid columns="2"  >
+                            <h:outputLabel value="Siape:" />
+                            <p:inputText id="usuario"  size="40" value="#{LoginBean.login.professorsiape.siape}" required="true" requiredMessage="Digite o Siape"     />
+                            <h:outputLabel value="Senha:" />
+                            <p:keyboard value="#{LoginBean.login.senha}" size="40" required="true" requiredMessage="Digite a Senha" label="Abrir Teclado Virtual"
+                                        password="true" showMode="button" buttonImageOnly="true" alt="Teclado" buttonImage="/resources/images/teclado.png" readonly="false" disabled="false"
+                                        />
+                            <p:commandButton id="entrar" style="margin-top:10px;"
+                                             value="Entrar"
+                                             action="#{LoginBean.entrar}"
+                                             update="login"
+
+                                             icon="ui-icon-locked" />
+                            <br/>
+                            <p:focus for="usuario" />
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+
+                <h:form id="formLinks">
+                    <p:panel id="painelLinks"  style="margin-bottom:10px;width:525px;min-width:525px;max-width:525px;" >
+                        <h:panelGrid columns="2"  columnClasses="coluna1, coluna2">
+                            <p:column id="coluna1" >
+                                <p:commandLink value="Solicitar Acesso?" action="solicitacaoAcesso.xhtml"  />
+                            </p:column>
+                            <p:column id="coluna2">
+                                <p:commandLink value="Esqueceu sua senha?"  onclick="PF('dlgEsqueceuSenha').show();" />
+                            </p:column>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </div>
+        </f:view>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.verificaAcesso()}" >
+                <div align="center">
+                    <h:form id="formVisualizarCampus" >
+                        <p:growl id="growlVisualzarCampus" />
+                        <p:dataTable id="tabelaCampus"
+                                     value="#{CampusBean.listaCampus}"
+                                     var="obj"
+                                     filteredValue="#{CampusBean.filtroCampus}"
+                                     paginator="true"
+                                     rows="10"
+                                     sortMode="multiple"
+                                     emptyMessage="Nenhum registro encontrado."
+                                     >
+                            <f:facet name="header">
+                                <h:outputText value="Campus" style="padding-left:100px;" />
+                                <p:commandLink action="cadastroCampus.xhtml"  ajax="false"
+                                               value="Cadastrar Campus"
+                                               style="float: right;" />
+
+                            </f:facet>
+                            <p:column id="nome"
+                                      filterBy="#{obj.nomecampus}" filterStyle="width:80%"
+                                      style="width:220px;text-align:center"
+                                      sortBy="#{obj.nomecampus}" headerText="Campus">
+                                <h:outputText value="#{obj.nomecampus}"  />
+                            </p:column>
+                            <p:column id="cep" style="width:100px;text-align:center"
+                                      filterBy="#{obj.cep}" filterStyle="width:80%"
+                                      sortBy="#{obj.cep}" headerText="CEP">
+                                <h:outputText value="#{obj.cep}" />
+                            </p:column>
+                            <p:column id="cidade" style="width:150px;text-align:center"
+                                      filterBy="#{obj.cidade}" filterStyle="width:80%"
+                                      sortBy="#{obj.cidade}" headerText="Cidade">
+                                <h:outputText value="#{obj.cidade}" />
+                            </p:column>
+                            <p:column id="estado" 
+                                      filterBy="#{obj.estado}"  filterStyle="width:80%" filterMatchMode="contains"
+                                      style="width:150px;text-align:center"
+                                      sortBy="#{obj.estado}" headerText="Estado">
+                                <h:outputText value="#{obj.estado}" />
+                            </p:column>
+                            <p:column headerText="Alterar" style="width:40px;max-width:40px" exportable="false">
+                                <div align="center">
+                                    <p:commandButton ajax="false"
+                                                     style="height:20px;width:30px;"
+                                                     icon="ui-icon-refresh"
+                                                     action="#{CampusBean.direcionaAlterarCampus(obj)}" />
+                                </div>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandLink style="float: left;padding:2px;" ajax="false" >
+                            <p:graphicImage value="/resources/images/excel.jpg" title="Exportar para Excel" width="24"/>
+                            <p:dataExporter type="xls" target="tabelaCampus" fileName="Campus" />
+                        </p:commandLink>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

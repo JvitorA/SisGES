@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{LoginBean.verificaAcesso()}" >
+                <div align="center">
+                    <h:form id="formVisualizarCurso" >
+                        <p:dataTable id="tabelaCurso"
+                                     value="#{CursoBean.listaCursos}"
+                                     var="obj"
+                                     filteredValue="#{CursoBean.fitroCursos}"
+                                     paginator="true"
+                                     rows="10"
+                                     sortMode="multiple"
+                                     style="width:738px;"
+                                     emptyMessage="Nenhum registro encontrado."
+                                     >
+                            <f:facet name="header">
+                                <h:outputText value="Cursos" style="padding-left:100px;" />
+                                <p:commandLink action="cadastroCurso.xhtml"
+                                               value="Cadastrar Curso" ajax="false"
+                                               style="float: right;" />
+                            </f:facet>
+                            <p:column id="curso" width="432"
+                                      filterBy="#{obj.nomecurso}" filterStyle="width:80%"
+                                      sortBy="#{obj.nomecurso}" headerText="Curso">
+                                <h:outputText value="#{obj.nomecurso}" />
+                            </p:column>
+                            <p:column id="horasobrigatorias" width="200" style="text-align:center"
+                                      filterBy="#{obj.horasobrigatorias}" filterStyle="width:80%"
+                                      sortBy="#{obj.horasobrigatorias}" headerText="Horas Obrigatórias">
+                                <h:outputText value="#{obj.horasobrigatorias}" />
+                            </p:column>
+                            <p:column headerText="Alterar" style="width:40px" exportable="false" >
+                                <div align="center">
+                                    <p:commandButton ajax="false" style="height:20px;width:30px;"
+                                                     icon="ui-icon-refresh"
+                                                     action="#{CursoBean.direcionaAlterarCurso(obj)}" />
+                                </div>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandLink ajax="false" style="padding:2px;" >
+                            <p:graphicImage value="/resources/images/excel.jpg" title="Exportar para Excel" width="24"/>
+                            <p:dataExporter type="xls" target="tabelaCurso" fileName="Cursos" />
+                        </p:commandLink>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

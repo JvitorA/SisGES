@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{AlunoBean.alunoAlterar}" >
+                <div align="center" >
+                    <h:form prependId="false" >
+                        <p:growl id="growlAluno" />
+                        <p:panel id="panel" header="Alterar Dados do Aluno" styleClass="painelGeral" >
+                            <p:message for="alterar"  />
+                            <h:panelGrid id="grid" columns="2" style="margin-top:8px"   >
+                                <h:outputLabel value="Matricula:" style="float:right" />
+                                <p:inputText id="matricula"  size="40" value="#{AlunoBean.aluno.matricula}"
+                                             required="true" requiredMessage="Digite o Nº de Siape." disabled="true"  />
+                                <h:outputLabel value="Nome:" style="float:right" />
+                                <p:inputText id="nome"  size="40" value="#{AlunoBean.aluno.nome}"
+                                             required="true" requiredMessage="Digite Nome."  />
+                                <h:outputLabel value="Email:" style="float:right" />
+                                <p:inputText id="email" size="40" value="#{AlunoBean.aluno.email}"
+                                             required="true" requiredMessage="Digite o Email." />
+                                <h:outputLabel value="Telefone:" style="float:right" />
+                                <p:inputMask id="telefone" size="40"  value="#{AlunoBean.aluno.telefone}" mask="(99) 9999-9999" required="false"/>
+                                <h:outputLabel value="Curso:" style="float:right" />
+                                <p:selectOneMenu required="true"
+                                                 value="#{AlunoBean.aluno.cursoidcurso.idcurso}"
+                                                 converter="javax.faces.Integer"
+                                                 style="width:275px;" requiredMessage="Selecione o curso." >
+                                    <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems  value="#{TrabalhoBean.listaCursos}"  var="c" itemValue="#{c.value}" itemLabel="#{c.label}"  />
+                                </p:selectOneMenu >
+
+                                <p:commandButton  id="alterar" 
+                                                  style="margin-top:20px;" 
+                                                  update="growlAluno" 
+                                                  icon="ui-icon-disk"
+                                                  value="Salvar Alteração" 
+
+                                                  actionListener="#{AlunoBean.alterarAluno(AlunoBean.aluno)}" />
+                                <p:focus for="nome" />
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                    <h:form id="mudarPagina" prependId="false" >
+                        <p:panel  style="margin-bottom:10px;width:650px;" >
+                            <h:panelGrid columns="2"  columnClasses="coluna1, coluna2">
+                                <p:column id="coluna1" >
+                                    <p:commandLink value="Cadastrar Aluno" action="cadastroAluno.xhtml" ajax="false"   />
+                                </p:column>
+                                <p:column id="coluna2">
+                                    <p:commandLink value="Visualizar Todos Alunos" action="visualizarAluno.xhtml" ajax="false"  />
+                                </p:column>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>

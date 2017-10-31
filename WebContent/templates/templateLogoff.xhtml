@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h:outputStylesheet library="css" name="cssLogoff.css" />
+        <h:outputStylesheet library="css" name="cssTemplate.css" />
+        <h:outputScript library="js" name="formatar.js" />
+        <h:outputScript library="js" name="primeFacesLocale.js" />
+        <title>SisGES</title>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="100" resizable="false"
+                          closable="false" collapsible="true">
+
+                <ui:include src="./../sections/header.xhtml"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="south" size="30" resizable="false"
+                          closable="false" collapsible="true">
+                <ui:include src="./../sections/footer.xhtml"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="west" size="200px" resizable="true" header="Menu"
+                          closable="false" collapsible="true" effect="drop">
+                <ui:include src="./../sections/menuLogoff.xhtml" />
+            </p:layoutUnit>            
+            <p:layoutUnit position="center" style="min-width:500px;" >
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <p:graphicImage value="/resources/images/ajaxLoader.gif" />
+                </p:dialog>
+                <ui:insert name="conteudo" />
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

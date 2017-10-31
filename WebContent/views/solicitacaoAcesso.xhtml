@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="./../templates/templateLogoff.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <div align="center" >
+                <h:form id="solicitarAcesso" >
+                    <p:growl id="growlAcesso" />
+                    <p:panel id="panel" header="Dados do Solicitante" styleClass="painelGeral" >
+                        <p:message for="entrar"  />
+                        <h:panelGrid id="grid" columns="2" style="margin-top:8px"   >
+                            <h:outputLabel value="Nome:" />
+                            <p:inputText id="nome"  size="40" value="#{ProfessorBean.login.professorsiape.nome}"
+                                         required="true" requiredMessage="Digite Nome."  />
+                            <h:outputLabel value="Siape:" />
+                            <p:inputText id="siape"  size="40" value="#{ProfessorBean.login.professorsiape.siape}"
+                                         required="true" requiredMessage="Digite o Nº de Siape."  />
+                            <h:outputLabel value="Email:" />
+                            <p:inputText id="email" size="40" value="#{ProfessorBean.login.professorsiape.email}"
+                                         required="true" requiredMessage="Digite o Email." />
+                            <h:outputLabel value="Telefone:" />
+                            <p:inputMask id="telefone" size="40" value="#{ProfessorBean.login.professorsiape.telefone}"
+                                         mask="(99) 9999-9999" required="false" />
+                            <p:commandButton  id="entrar" style="margin-top:30px;" 
+                                              update="solicitarAcesso"
+
+                                              icon="ui-icon ui-icon-disk"
+                                              value="Enviar"
+                                              actionListener="#{ProfessorBean.solicitarAcesso}" />
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:focus for="nome" />
+                </h:form>
+            </div>
+        </f:view>
+    </ui:define>
+</ui:composition>
+

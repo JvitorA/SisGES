@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="#{SistemaBean.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <f:view encoding="ISO-8859-1" >
+            <h:body onload="#{CursoBean.cursoAlterar}" >
+                <div align="center" >
+                    <h:form  prependId="false" >
+                        <p:growl id="growlCurso" />
+                        <p:panel id="panel" header="Alterar Dados do Curso" styleClass="painelGeral" >
+                            <p:message for="alterar"  />
+                            <h:panelGrid id="grid" columns="2" style="margin-top:8px"   >
+                                <h:outputLabel value="Nome do curso:" style="float:right" />
+                                <p:inputText id="nome"  size="70" value="#{CursoBean.curso.nomecurso}"
+                                             required="true" requiredMessage="Digite Nome do curso."  />
+                                <h:outputLabel value="Horas Obrigatórias:" style="float:right" />
+                                <p:inputText id="horasObrigatorias"  size="10" value="#{CursoBean.curso.horasobrigatorias}"
+                                             required="true" requiredMessage="Informe as horas obrigatórias."
+                                             converter="javax.faces.Integer"  />
+                                <p:commandButton  id="alterar" style="margin-top:20px;" 
+                                                  update="growlCurso" 
+
+                                                  icon="ui-icon-disk"
+                                                  value="Salvar Alteração"  
+                                                  actionListener="#{CursoBean.alterarCurso}" />
+                                <p:focus for="nome" />
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                    <h:form id="mudarPagina" prependId="false" >
+                        <p:panel  style="margin-bottom:10px;width:650px;" >
+                            <h:panelGrid columns="2"  columnClasses="coluna1, coluna2">
+                                <p:column id="coluna1" >
+                                    <p:commandLink value="Cadastrar Curso" action="cadastroCurso.xhtml" ajax="false"   />
+                                </p:column>
+                                <p:column id="coluna2">
+                                    <p:commandLink value="Visualizar Todos Cursos" action="visualizarCurso.xhtml" ajax="false"  />
+                                </p:column>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </h:body>
+        </f:view>
+    </ui:define>
+</ui:composition>
