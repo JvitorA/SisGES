@@ -69,7 +69,7 @@ public final class LoginController implements Serializable {
                     instance.getSession().setAttribute("login", login);
                     
                     if(true) {
-                    	System.out.println("Stop");
+                    	System.out.println("Stsp");
                     }
 
                     if (login.getProfessorsiape().getPerfilidperfil().getNomeperfil().equals("Professor")) {
