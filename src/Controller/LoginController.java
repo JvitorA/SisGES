@@ -68,7 +68,6 @@ public final class LoginController implements Serializable {
                     SistemaSession instance = SistemaSession.getInstance();
                     instance.getSession().setAttribute("login", login);
                     
-                    System.out.println("oi");
                     if(true) {
                     	System.out.println("Stop");
                     }
