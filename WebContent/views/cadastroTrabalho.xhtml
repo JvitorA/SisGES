@@ -5,444 +5,479 @@ and open the template in the editor.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition template="#{SistemaBean.template}"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
-    <ui:define name="conteudo">
-        <f:view encoding="ISO-8859-1" >
-            <h:body onload="#{LoginBean.verificaAcesso()}" >
-                <div align="center" >
-                    <!--
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="conteudo">
+		<f:view encoding="ISO-8859-1">
+			<h:body onload="#{LoginBean.verificaAcesso()}">
+				<div align="center">
+					<!--
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     DIALOGO CADASTRAR CURSO
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     -->
-                    <p:dialog header="Cadastrar Curso" widgetVar="dlgCadastroCurso" resizable="false" >
-                        <div align="center" >
-                            <h:form id="cadastroCurso">
-                                <p:growl id="growlCurso" />
-                                <p:panel id="panel" styleClass="painelGeral" style="width:700px" >
-                                    <h:panelGrid id="grid" columns="2" style="margin-top:8px"   >
-                                        <h:outputLabel value="Nome do Curso:" style="float:right" />
-                                        <p:inputText id="curso"  size="70" value="#{CursoBean.curso.nomecurso}"
-                                                     required="true" requiredMessage="Digite nome do curso."  />
-                                        <h:outputLabel value="Horas Obrigatórias:" style="float:right" />
-                                        <p:inputText id="horasObrigatorias"  size="10" value="#{CursoBean.curso.horasobrigatorias}"
-                                                     required="true" requiredMessage="Informe as horas obrigatórias."
-                                                     converter="javax.faces.Integer"  />
-                                        <p:commandButton  id="cadastrar" 
-                                                          update="growlCurso :cadastroTrabalho:curso"
-
-                                                          icon="ui-icon-disk"
-                                                          value="Salvar"
-                                                          style="margin-top:20px;float:right"
-                                                          actionListener="#{CursoBean.cadastrar}" />
-                                    </h:panelGrid>
-                                    <p:focus for="curso" />
-                                </p:panel>
-                            </h:form>
-                        </div>
-                    </p:dialog>
-                    <!--
+					<p:dialog header="Cadastrar Curso" widgetVar="dlgCadastroCurso"
+						resizable="false">
+						<div align="center">
+							<h:form id="cadastroCurso">
+								<p:growl id="growlCurso" />
+								<p:panel id="panel" styleClass="painelGeral" style="width:700px">
+									<h:panelGrid id="grid" columns="2" style="margin-top:8px">
+										<h:outputLabel value="Nome do Curso:" style="float:right" />
+										<p:inputText id="curso" size="70"
+											value="#{CursoBean.curso.nomecurso}" required="true"
+											requiredMessage="Digite nome do curso." />
+										<h:outputLabel value="Horas Obrigatórias:" style="float:right" />
+										<p:inputText id="horasObrigatorias" size="10"
+											value="#{CursoBean.curso.horasobrigatorias}" required="true"
+											requiredMessage="Informe as horas obrigatórias."
+											converter="javax.faces.Integer" />
+										<p:commandButton id="cadastrar"
+											update="growlCurso :cadastroTrabalho:curso"
+											icon="ui-icon-disk" value="Salvar"
+											style="margin-top:20px;float:right"
+											actionListener="#{CursoBean.cadastrar}" />
+									</h:panelGrid>
+									<p:focus for="curso" />
+								</p:panel>
+							</h:form>
+						</div>
+					</p:dialog>
+					<!--
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     DIALOGO CADASTRAR ALUNO
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     -->
-                    <p:dialog header="Cadastrar Aluno" widgetVar="dlgCadastroAluno" resizable="false" >
-                        <div align="center" >
-                            <h:form id="cadastroAluno" >
-                                <p:growl id="growlAluno" />
-                                <p:panel id="panel" styleClass="painelGeral" style="width:700px" >
-                                    <h:panelGrid id="grid" columns="2" style="margin-top:8px"   >
+					<p:dialog header="Cadastrar Aluno" widgetVar="dlgCadastroAluno"
+						resizable="false">
+						<div align="center">
+							<h:form id="cadastroAluno">
+								<p:growl id="growlAluno" />
+								<p:panel id="panel" styleClass="painelGeral" style="width:700px">
+									<h:panelGrid id="grid" columns="2" style="margin-top:8px">
 
-                                        <h:outputLabel value="Nome:" style="float:right" />
-                                        <p:inputText id="nome"  size="40" value="#{AlunoBean.aluno.nome}"
-                                                     required="true" requiredMessage="Digite Nome."  />
-                                        <h:outputLabel value="Matricula:" style="float:right" />
-                                        <p:inputText id="matricula"  size="40" value="#{AlunoBean.aluno.matricula}"
-                                                     required="true" requiredMessage="Digite a Matricula."  />
+										<h:outputLabel value="Nome:" style="float:right" />
+										<p:inputText id="nome" size="40"
+											value="#{AlunoBean.aluno.nome}" required="true"
+											requiredMessage="Digite Nome." />
+										<h:outputLabel value="Matricula:" style="float:right" />
+										<p:inputText id="matricula" size="40"
+											value="#{AlunoBean.aluno.matricula}" required="true"
+											requiredMessage="Digite a Matricula." />
 
-                                        <h:outputLabel value="Email:" style="float:right" />
-                                        <p:inputText id="email" size="40" value="#{AlunoBean.aluno.email}"
-                                                     required="true" requiredMessage="Digite o Email." />
+										<h:outputLabel value="Email:" style="float:right" />
+										<p:inputText id="email" size="40"
+											value="#{AlunoBean.aluno.email}" required="true"
+											requiredMessage="Digite o Email." />
 
-                                        <h:outputLabel value="Telefone:" style="float:right" />
-                                        <p:inputMask id="telefone" size="40"  value="#{AlunoBean.aluno.telefone}" mask="(99) 9999-9999" required="false"/>
+										<h:outputLabel value="Telefone:" style="float:right" />
+										<p:inputMask id="telefone" size="40"
+											value="#{AlunoBean.aluno.telefone}" mask="(99) 9999-9999"
+											required="false" />
 
-                                        <h:outputLabel value="Curso:" style="float:right;" />
-                                        <p:selectOneMenu required="true"
-                                                         value="#{AlunoBean.aluno.cursoidcurso.idcurso}"
-                                                         converter="javax.faces.Integer"
-                                                         style="width:275px;" requiredMessage="Selecione o curso." >
-                                            <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
-                                            <f:selectItems  value="#{TrabalhoBean.listaCursos}"  var="c" itemValue="#{c.value}" itemLabel="#{c.label}"  />
-                                        </p:selectOneMenu >
+										<h:outputLabel value="Curso:" style="float:right;" />
+										<p:selectOneMenu required="true"
+											value="#{AlunoBean.aluno.cursoidcurso.idcurso}"
+											converter="javax.faces.Integer" style="width:275px;"
+											requiredMessage="Selecione o curso.">
+											<f:selectItem itemLabel="Selecione" itemValue=""
+												noSelectionOption="true" />
+											<f:selectItems value="#{TrabalhoBean.listaCursos}" var="c"
+												itemValue="#{c.value}" itemLabel="#{c.label}" />
+										</p:selectOneMenu>
 
-                                        <p:commandButton  id="cadastrar" update="growlAluno :cadastroTrabalho:aluno"
-
-                                                          icon="ui-icon-disk"
-                                                          value="Salvar"
-                                                          style="margin-top:20px;"
-                                                          actionListener="#{AlunoBean.cadastrar}" />
-                                    </h:panelGrid>
-                                    <p:focus for="nome" />
-                                </p:panel>
-                            </h:form>
-                        </div>
-                    </p:dialog>
-                    <!--
+										<p:commandButton id="cadastrar"
+											update="growlAluno :cadastroTrabalho:aluno"
+											icon="ui-icon-disk" value="Salvar" style="margin-top:20px;"
+											actionListener="#{AlunoBean.cadastrar}" />
+									</h:panelGrid>
+									<p:focus for="nome" />
+								</p:panel>
+							</h:form>
+						</div>
+					</p:dialog>
+					<!--
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     DIALOGO CADASTRAR ASSUNTO
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     -->
-                    <p:dialog header="Cadastrar Assunto" widgetVar="dlgCadastroAssunto" resizable="false" >
-                        <div align="center" >
-                            <h:form id="cadastroAssunto">
-                                <p:growl id="growlAssunto" />
-                                <p:panel id="panel" styleClass="painelGeral" >
-                                    <h:panelGrid id="grid" columns="2" style="margin-top:8px"   >
-                                        <h:outputLabel value="Área \ Assunto:" style="float:right" />
-                                        <p:inputText id="curso"  size="70" value="#{AssuntoBean.assunto.nome}"
-                                                     required="true" requiredMessage="Digite o assunto."  />
-                                        <p:commandButton  id="cadastrar"
-                                                          update="growlAssunto :cadastroTrabalho:assunto"
-
-                                                          icon="ui-icon-disk"
-                                                          value="Salvar"
-                                                          style="margin-top:20px"
-                                                          actionListener="#{AssuntoBean.cadastrar}" />
-                                    </h:panelGrid>
-                                    <p:focus for="curso" />
-                                </p:panel>
-                            </h:form>
-                        </div>
-                    </p:dialog>
-                    <!--
+					<p:dialog header="Cadastrar Assunto" widgetVar="dlgCadastroAssunto"
+						resizable="false">
+						<div align="center">
+							<h:form id="cadastroAssunto">
+								<p:growl id="growlAssunto" />
+								<p:panel id="panel" styleClass="painelGeral">
+									<h:panelGrid id="grid" columns="2" style="margin-top:8px">
+										<h:outputLabel value="Área \ Assunto:" style="float:right" />
+										<p:inputText id="curso" size="70"
+											value="#{AssuntoBean.assunto.nome}" required="true"
+											requiredMessage="Digite o assunto." />
+										<p:commandButton id="cadastrar"
+											update="growlAssunto :cadastroTrabalho:assunto"
+											icon="ui-icon-disk" value="Salvar" style="margin-top:20px"
+											actionListener="#{AssuntoBean.cadastrar}" />
+									</h:panelGrid>
+									<p:focus for="curso" />
+								</p:panel>
+							</h:form>
+						</div>
+					</p:dialog>
+					<!--
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     DIALOGO CADASTRAR EMPRESA
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     -->
-                    <p:dialog header="Cadastrar Empresa" widgetVar="dlgCadastroEmpresa" resizable="false" >
-                        <div align="center" >
-                            <h:form id="cadastroEmpresa" >
-                                <p:growl id="growlEmpresa" />
-                                <p:panel id="panel" styleClass="painelGeral" >
-                                    <h:panelGrid id="grid" columns="2" style="margin-top:8px"   >
-                                        <h:outputLabel value="Nome:" style="float:right" />
-                                        <p:inputText id="nome"  size="40" value="#{EmpresaBean.empresa.nome}"
-                                                     required="true" requiredMessage="Digite o Nome."  />
-                                        <h:outputLabel value="Endereço:" style="float:right" />
-                                        <p:inputText id="endereco"  size="40" value="#{EmpresaBean.empresa.endereco}"
-                                                     required="true" requiredMessage="Digite o Endereço."  />
-                                        <h:outputLabel value="Área:" style="float:right" />
-                                        <p:inputText id="email" size="40" value="#{EmpresaBean.empresa.area}"
-                                                     required="true" requiredMessage="Digite a Área." />
-                                        <h:outputLabel value="Telefone:" style="float:right" />
-                                        <p:inputMask id="telefone" size="40"  value="#{EmpresaBean.empresa.telefone}" mask="(99) 9999-9999" required="false"/>
-                                        <p:commandButton  id="cadastrar"
-                                                          update="growlEmpresa :cadastroTrabalho:empresa"
+					<p:dialog header="Cadastrar Empresa" widgetVar="dlgCadastroEmpresa"
+						resizable="false">
+						<div align="center">
+							<h:form id="cadastroEmpresa">
+								<p:growl id="growlEmpresa" />
+								<p:panel id="panel" styleClass="painelGeral">
+									<h:panelGrid id="grid" columns="2" style="margin-top:8px">
+										<h:outputLabel value="Nome:" style="float:right" />
+										<p:inputText id="nome" size="40"
+											value="#{EmpresaBean.empresa.nome}" required="true"
+											requiredMessage="Digite o Nome." />
+										<h:outputLabel value="Endereço:" style="float:right" />
+										<p:inputText id="endereco" size="40"
+											value="#{EmpresaBean.empresa.endereco}" required="true"
+											requiredMessage="Digite o Endereço." />
+										<h:outputLabel value="Área:" style="float:right" />
+										<p:inputText id="email" size="40"
+											value="#{EmpresaBean.empresa.area}" required="true"
+											requiredMessage="Digite a Área." />
+										<h:outputLabel value="Telefone:" style="float:right" />
+										<p:inputMask id="telefone" size="40"
+											value="#{EmpresaBean.empresa.telefone}" mask="(99) 9999-9999"
+											required="false" />
+										<p:commandButton id="cadastrar"
+											update="growlEmpresa :cadastroTrabalho:empresa"
+											icon="ui-icon-disk" value="Salvar" style="margin-top:20px"
+											actionListener="#{EmpresaBean.cadastrar}" />
+									</h:panelGrid>
+									<p:focus for="nome" />
+								</p:panel>
+							</h:form>
+						</div>
+					</p:dialog>
 
-                                                          icon="ui-icon-disk"
-                                                          value="Salvar"
-                                                          style="margin-top:20px"
-                                                          actionListener="#{EmpresaBean.cadastrar}" />
-                                    </h:panelGrid>
-                                    <p:focus for="nome" />
-                                </p:panel>
-                            </h:form>
-                        </div>
-                    </p:dialog>
-
-                    <!--
+					<!--
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     DIALOGO CADASTRAR PROFESSOR
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     -->
-                    <p:dialog header="Cadastrar Professor" widgetVar="dlgCadastroProfessor" resizable="false" >
-                        <div align="center" >
-                            <h:form id="cadastroProfessor" prependId="false" >
-                                <p:growl id="growlProfessor" />
-                                <p:panel id="panelProfessor" styleClass="painelGeral" >
-                                    <h:panelGrid id="gridProfessor" columns="2" style="margin-top:8px"   >
+					<p:dialog header="Cadastrar Professor"
+						widgetVar="dlgCadastroProfessor" resizable="false">
+						<div align="center">
+							<h:form id="cadastroProfessor" prependId="false">
+								<p:growl id="growlProfessor" />
+								<p:panel id="panelProfessor" styleClass="painelGeral">
+									<h:panelGrid id="gridProfessor" columns="2"
+										style="margin-top:8px">
 
-                                        <h:outputLabel value="Nome:" style="float:right" />
-                                        <p:inputText id="nome"  size="40" value="#{ProfessorBean.login.professorsiape.nome}"
-                                                     required="true" requiredMessage="Digite Nome."  />
-                                        <h:outputLabel value="Siape:" style="float:right" />
-                                        <p:inputText id="siape"  size="40" value="#{ProfessorBean.login.professorsiape.siape}"
-                                                     required="true" requiredMessage="Digite o Nº de Siape."  />
+										<h:outputLabel value="Nome:" style="float:right" />
+										<p:inputText id="nome" size="40"
+											value="#{ProfessorBean.login.professorsiape.nome}"
+											required="true" requiredMessage="Digite Nome." />
+										<h:outputLabel value="Siape:" style="float:right" />
+										<p:inputText id="siape" size="40"
+											value="#{ProfessorBean.login.professorsiape.siape}"
+											required="true" requiredMessage="Digite o Nº de Siape." />
 
-                                        <h:outputLabel value="Email:" style="float:right" />
-                                        <p:inputText id="email" size="40" value="#{ProfessorBean.login.professorsiape.email}"
-                                                     required="true" requiredMessage="Digite o Email." />
+										<h:outputLabel value="Email:" style="float:right" />
+										<p:inputText id="email" size="40"
+											value="#{ProfessorBean.login.professorsiape.email}"
+											required="true" requiredMessage="Digite o Email." />
 
 
-                                        <h:outputLabel value="Telefone:" style="float:right" />
-                                        <p:inputMask id="telefone" size="40"  value="#{ProfessorBean.login.professorsiape.telefone}" mask="(99) 9999-9999" required="false"/>
+										<h:outputLabel value="Telefone:" style="float:right" />
+										<p:inputMask id="telefone" size="40"
+											value="#{ProfessorBean.login.professorsiape.telefone}"
+											mask="(99) 9999-9999" required="false" />
 
-                                        <h:outputLabel value="Perfil:" style="float:right" />
-                                        <p:selectOneMenu id="perfil" required="true"
-                                                         value="#{ProfessorBean.login.professorsiape.perfilidperfil.idperfil}"
-                                                         converter="javax.faces.Integer"
-                                                         style="width:235px;" requiredMessage="Selecione o Perfil." >
-                                            <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
-                                            <f:selectItem itemLabel="Coordenador de Estágio" itemValue="1"  />
-                                            <f:selectItem itemLabel="Professor" itemValue="2" />
-                                        </p:selectOneMenu >
-                                        <h:outputLabel value="Senha:" style="float:right"  />
-                                        <p:password id="senha" feedback="true" style="width:225px;" value="#{ProfessorBean.login.senha}"
-                                                    requiredMessage="Digite Senha."
-                                                    weakLabel="Fácil" goodLabel="Bom" strongLabel="Forte"
-                                                    promptLabel="Digite Senha" required="true"  />
-                                        <p:commandButton  style="margin-top:20px;"
-
-                                                          icon="ui-icon-disk"
-                                                          value="Salvar"
-                                                          update="growlProfessor :cadastroTrabalho:orientador"
-                                                          actionListener="#{ProfessorBean.cadastrar}" />
-                                    </h:panelGrid>
-                                    <p:focus for="nome" />
-                                </p:panel>
-                            </h:form>
-                        </div>
-                    </p:dialog>
-                    <!--
+										<h:outputLabel value="Perfil:" style="float:right" />
+										<p:selectOneMenu id="perfil" required="true"
+											value="#{ProfessorBean.login.professorsiape.perfilidperfil.idperfil}"
+											converter="javax.faces.Integer" style="width:235px;"
+											requiredMessage="Selecione o Perfil.">
+											<f:selectItem itemLabel="Selecione" itemValue=""
+												noSelectionOption="true" />
+											<f:selectItem itemLabel="Coordenador de Estágio"
+												itemValue="1" />
+											<f:selectItem itemLabel="Professor" itemValue="2" />
+										</p:selectOneMenu>
+										<h:outputLabel value="Senha:" style="float:right" />
+										<p:password id="senha" feedback="true" style="width:225px;"
+											value="#{ProfessorBean.login.senha}"
+											requiredMessage="Digite Senha." weakLabel="Fácil"
+											goodLabel="Bom" strongLabel="Forte"
+											promptLabel="Digite Senha" required="true" />
+										<p:commandButton style="margin-top:20px;" icon="ui-icon-disk"
+											value="Salvar"
+											update="growlProfessor :cadastroTrabalho:orientador"
+											actionListener="#{ProfessorBean.cadastrar}" />
+									</h:panelGrid>
+									<p:focus for="nome" />
+								</p:panel>
+							</h:form>
+						</div>
+					</p:dialog>
+					<!--
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     DIALOGO ENVIAR EMAIL
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     -->
-                    <p:dialog header="ENVIAR EMAIL?" widgetVar="dlgEmail" resizable="false" >
-                        <h:form id="formDialogEnviarEmail">
-                            <h:panelGrid columns="1" style="margin-bottom:10px">
-                                <h:outputLabel value="Enviar email para professor orientador e aluno?" />
-                            </h:panelGrid>
-                            <h:panelGrid columns="2" style="margin-bottom:10px">
-                                <h:outputText value="Enviar Email: " />
-                                <p:selectOneRadio id="options" value="#{TrabalhoBean.enviarEmail}" required="true" requiredMessage="Selecione Sim ou Não." >
-                                    <f:selectItem itemLabel="Sim" itemValue="sim" />
-                                    <f:selectItem itemLabel="Não" itemValue="nao" />
-                                </p:selectOneRadio>
-                            </h:panelGrid>
-                            <p:commandButton  id="enviarEmail"
-
-                                              icon="ui-icon-disk"
-                                              value="Salvar"
-                                              actionListener="#{TrabalhoBean.cadastrar}" />
-                        </h:form>
-                    </p:dialog>
-                    <!--
+					<p:dialog header="ENVIAR EMAIL?" widgetVar="dlgEmail"
+						resizable="false">
+						<h:form id="formDialogEnviarEmail">
+							<h:panelGrid columns="1" style="margin-bottom:10px">
+								<h:outputLabel
+									value="Enviar email para professor orientador e aluno?" />
+							</h:panelGrid>
+							<h:panelGrid columns="2" style="margin-bottom:10px">
+								<h:outputText value="Enviar Email: " />
+								<p:selectOneRadio id="options"
+									value="#{TrabalhoBean.enviarEmail}" required="true"
+									requiredMessage="Selecione Sim ou Não.">
+									<f:selectItem itemLabel="Sim" itemValue="sim" />
+									<f:selectItem itemLabel="Não" itemValue="nao" />
+								</p:selectOneRadio>
+							</h:panelGrid>
+							<p:commandButton id="enviarEmail" icon="ui-icon-disk"
+								value="Salvar" actionListener="#{TrabalhoBean.cadastrar}" />
+						</h:form>
+					</p:dialog>
+					<!--
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     FORMULARIO CADASTRAR TRABALHO
                     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                     -->
-                    <h:form id="cadastroTrabalho" prependId="false" >
-                        <p:growl id="growlTrabalho" />
-                        <p:panel id="panel" header="Trabalho" style="margin-bottom:10px;width:98%;">
-                            <h:panelGrid id="grid" columns="2" style="margin-top:8px;padding-right:145px;">
-                                <h:outputLabel value="Curso:" style="float:right" />
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <p:selectOneMenu id="curso"
-                                                     required="true"
-                                                     value="#{TrabalhoBean.idCurso}"
-                                                     style="width:365px;" requiredMessage="Selecione o curso." >
-                                        <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
-                                        <f:selectItems  value="#{TrabalhoBean.listaCursos}"  var="c" itemValue="#{c.value}" itemLabel="#{c.label}"  />
-                                        <p:ajax event="change" process="@this"
-                                                listener="#{TrabalhoBean.cursoListener}"
-                                                update="aluno dataMinDefesa dataMaxDefesa finalizar" />
-                                    </p:selectOneMenu >
-                                    <p:commandLink  onclick="PF('dlgCadastroCurso').show();"
-                                                    value="Cadastrar Curso"
-                                                    style="float:right;" />
-                                </h:panelGrid>
+					<h:form id="cadastroTrabalho" prependId="false">
+						<p:growl id="growlTrabalho" />
+						<p:panel id="panel" header="Trabalho"
+							style="margin-bottom:10px;width:98%;">
+							<h:panelGrid id="grid" columns="2"
+								style="margin-top:8px;padding-right:145px;">
 
-                                <h:outputLabel value="Aluno:" style="float:right" />
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <p:selectOneMenu id="aluno"
-                                                     required="true"
-                                                     disabled="#{TrabalhoBean.exibirAluno}"
-                                                     value="#{TrabalhoBean.trabalho.alunomatricula.matricula}"
-                                                     panelStyle="width:345px"
-                                                     filter="true" filterMatchMode="startsWith"
-                                                     style="width:365px;" requiredMessage="Selecione o aluno." >
-                                        <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
-                                        <f:selectItems value="#{TrabalhoBean.listaAlunos}"  var="a" itemValue="#{a.value}" itemLabel="#{a.label}"   />
-                                    </p:selectOneMenu>
-                                    <p:commandLink onclick="PF('dlgCadastroAluno').show();"
-                                                   value="Cadastrar Aluno"
-                                                   style="float: right;" />
-                                </h:panelGrid>
-                                <h:outputLabel value="Título do Trabalho:" style="float:right" />
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <p:inputText id="titulo"  size="56"
-                                                 style="width:358px;"
-                                                 value="#{TrabalhoBean.trabalho.titulo}"
-                                                 required="true" requiredMessage="Digite o Título."  />
-                                </h:panelGrid>
+								<h:outputLabel value="Status:" style="float:right" />
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:selectOneMenu id="trabalhoStatus" required="true"
+										requiredMessage="Selecione o status"
+										value="#{TrabalhoBean.trabalho.statusidstatus.idstatus}"
+										disabled="#{TrabalhoBean.trabalhoFinalizado or ProfessorBean.usuarioProfessor == true}"
+										panelStyle="width:345px" style="width:365px;">
+										<f:selectItem itemLabel="Selecione" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems value="#{TrabalhoBean.listaTrabalhoStatus}"
+											var="ts" itemValue="#{ts.value}" itemLabel="#{ts.label}" />
+									</p:selectOneMenu>
+								</h:panelGrid>
 
-                                <h:outputLabel value="Assunto \ Tema:" style="float:right" />
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <p:selectOneMenu id="assunto" required="true"
-                                                     value="#{TrabalhoBean.trabalho.assuntoidassunto.idassunto}"
-                                                     panelStyle="width:345px"
-                                                     filter="true" filterMatchMode="startsWith"
-                                                     style="width:365px;" requiredMessage="Selecione o assunto." >
-                                        <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
-                                        <f:selectItems value="#{TrabalhoBean.listaAssuntos}"  var="c" itemValue="#{c.value}" itemLabel="#{c.label}"   />
-                                    </p:selectOneMenu >
-                                    <p:commandLink onclick="PF('dlgCadastroAssunto').show();"
-                                                   value="Cadastrar Assunto"
-                                                   style="float: right;" />
-                                </h:panelGrid>
+								<h:outputLabel value="Curso:" style="float:right" />
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:selectOneMenu id="curso" required="true"
+										value="#{TrabalhoBean.idCurso}" style="width:365px;"
+										requiredMessage="Selecione o curso.">
+										<f:selectItem itemLabel="Selecione" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems value="#{TrabalhoBean.listaCursos}" var="c"
+											itemValue="#{c.value}" itemLabel="#{c.label}" />
+										<p:ajax event="change" process="@this"
+											listener="#{TrabalhoBean.cursoListener}"
+											update="aluno dataMinDefesa dataMaxDefesa finalizar" />
+									</p:selectOneMenu>
+									<p:commandLink onclick="PF('dlgCadastroCurso').show();"
+										value="Cadastrar Curso" style="float:right;" />
+								</h:panelGrid>
 
-                                <h:outputLabel value="Tipo de Estágio:" style="float:right" />
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <p:selectOneMenu id="tipoEstagio" required="true"
-                                                     value="#{TrabalhoBean.trabalho.estagioidestagio.idestagio}"
-                                                     panelStyle="width:345px"
-                                                     style="width:365px;" requiredMessage="Selecione o tipo do estágio." >
-                                        <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
-                                        <f:selectItems value="#{TrabalhoBean.listaTipoEstagio}"  var="e" itemValue="#{e.value}" itemLabel="#{e.label}"   />
-                                    </p:selectOneMenu>
-                                </h:panelGrid>
+								<h:outputLabel value="Aluno:" style="float:right" />
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:selectOneMenu id="aluno" required="true"
+										disabled="#{TrabalhoBean.exibirAluno}"
+										value="#{TrabalhoBean.trabalho.alunomatricula.matricula}"
+										panelStyle="width:345px" filter="true"
+										filterMatchMode="startsWith" style="width:365px;"
+										requiredMessage="Selecione o aluno.">
+										<f:selectItem itemLabel="Selecione" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems value="#{TrabalhoBean.listaAlunos}" var="a"
+											itemValue="#{a.value}" itemLabel="#{a.label}" />
+									</p:selectOneMenu>
+									<p:commandLink onclick="PF('dlgCadastroAluno').show();"
+										value="Cadastrar Aluno" style="float: right;" />
+								</h:panelGrid>
+								<h:outputLabel value="Título do Trabalho:" style="float:right" />
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:inputText id="titulo" size="56" style="width:358px;"
+										value="#{TrabalhoBean.trabalho.titulo}" required="true"
+										requiredMessage="Digite o Título." />
+								</h:panelGrid>
 
-                                <h:outputLabel value="Modalidade:" style="float:right" />
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <p:selectOneMenu id="modalidade"
-                                                     required="true"
-                                                     editable="true"
-                                                     value="#{TrabalhoBean.nomeModalidade}"
-                                                     panelStyle="width:345px"
-                                                     style="width:365px;"
-                                                     requiredMessage="Selecione a modalidade." >
-                                        <f:selectItems value="#{TrabalhoBean.listaModalidade}"  var="m" itemValue="#{m.label}" itemLabel="#{m.label}"   />
-                                    </p:selectOneMenu >
-                                </h:panelGrid>
+								<h:outputLabel value="Assunto \ Tema:" style="float:right" />
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:selectOneMenu id="assunto" required="true"
+										value="#{TrabalhoBean.trabalho.assuntoidassunto.idassunto}"
+										panelStyle="width:345px" filter="true"
+										filterMatchMode="startsWith" style="width:365px;"
+										requiredMessage="Selecione o assunto.">
+										<f:selectItem itemLabel="Selecione" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems value="#{TrabalhoBean.listaAssuntos}" var="c"
+											itemValue="#{c.value}" itemLabel="#{c.label}" />
+									</p:selectOneMenu>
+									<p:commandLink onclick="PF('dlgCadastroAssunto').show();"
+										value="Cadastrar Assunto" style="float: right;" />
+								</h:panelGrid>
 
-                                <h:outputLabel value="Empresa:" style="float:right" />
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <p:selectOneMenu id="empresa" required="true"
-                                                     value="#{TrabalhoBean.trabalho.empresaidempresa.idempresa}"
-                                                     filter="true" filterMatchMode="startsWith"
-                                                     panelStyle="width:345px"
-                                                     style="width:365px;" requiredMessage="Selecione a empresa." >
-                                        <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
-                                        <f:selectItems value="#{TrabalhoBean.listaEmpresa}"  var="e" itemValue="#{e.value}" itemLabel="#{e.label}"   />
-                                    </p:selectOneMenu>
-                                    <p:commandLink onclick="PF('dlgCadastroEmpresa').show();"
-                                                   value="Cadastrar Empresa"
-                                                   style="float: right;" />
-                                </h:panelGrid>
+								<h:outputLabel value="Tipo de Estágio:" style="float:right" />
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:selectOneMenu id="tipoEstagio" required="true"
+										value="#{TrabalhoBean.trabalho.estagioidestagio.idestagio}"
+										panelStyle="width:345px" style="width:365px;"
+										requiredMessage="Selecione o tipo do estágio.">
+										<f:selectItem itemLabel="Selecione" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems value="#{TrabalhoBean.listaTipoEstagio}"
+											var="e" itemValue="#{e.value}" itemLabel="#{e.label}" />
+									</p:selectOneMenu>
+								</h:panelGrid>
 
-                                <h:outputLabel value="Orientador:" style="float:right" />
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <p:selectOneMenu id="orientador" required="true"
-                                                     value="#{TrabalhoBean.orientador.siape}"
-                                                     filter="true" filterMatchMode="startsWith"
-                                                     panelStyle="width:345px"
-                                                     style="width:365px;" requiredMessage="Selecione o orientador." >
-                                        <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
-                                        <f:selectItems value="#{TrabalhoBean.listaProfessorParaOrientacao}"  var="o" itemValue="#{o.value}" itemLabel="#{o.label}"   />
-                                    </p:selectOneMenu>
-                                    <p:commandLink onclick="PF('dlgCadastroProfessor').show();"
-                                                   value="Cadastrar Professor"
-                                                   style="float: right;" />
-                                </h:panelGrid>
-                            </h:panelGrid>
+								<h:outputLabel value="Modalidade:" style="float:right" />
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:selectOneMenu id="modalidade" required="true"
+										editable="true" value="#{TrabalhoBean.nomeModalidade}"
+										panelStyle="width:345px" style="width:365px;"
+										requiredMessage="Selecione a modalidade.">
+										<f:selectItems value="#{TrabalhoBean.listaModalidade}" var="m"
+											itemValue="#{m.label}" itemLabel="#{m.label}" />
+									</p:selectOneMenu>
+								</h:panelGrid>
 
-                            <h:panelGrid  columns="4" cellpadding="5" style="padding-right:255px;"  >
-                                <p:outputLabel value="Horas por dia:" style="text-align:right;padding-left:20px;" />
-                                <p:calendar id="horas"
-                                            value="#{TrabalhoBean.qtdHoras}"
-                                            style="padding-right:5px;"
-                                            maxlength="5" maxHour="8" minHour="3"
-                                            required="true"
-                                            requiredMessage="Inserir horas por dia."
-                                            locale="pt" maxMinute="00"
-                                            pattern="HH:mm" timeOnly="true"  >
-                                    <p:ajax event="dateSelect" process="@this,curso,defesa"
-                                            listener="#{TrabalhoBean.defesaListener}"
-                                            update="paineldefesa finalizar" />
-                                </p:calendar>
+								<h:outputLabel value="Empresa:" style="float:right" />
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:selectOneMenu id="empresa" required="true"
+										value="#{TrabalhoBean.trabalho.empresaidempresa.idempresa}"
+										filter="true" filterMatchMode="startsWith"
+										panelStyle="width:345px" style="width:365px;"
+										requiredMessage="Selecione a empresa.">
+										<f:selectItem itemLabel="Selecione" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems value="#{TrabalhoBean.listaEmpresa}" var="e"
+											itemValue="#{e.value}" itemLabel="#{e.label}" />
+									</p:selectOneMenu>
+									<p:commandLink onclick="PF('dlgCadastroEmpresa').show();"
+										value="Cadastrar Empresa" style="float: right;" />
+								</h:panelGrid>
 
-                                <h:outputText value="Haverá Defesa?" style="text-align:right;padding-left:10px"  />
-                                <p:selectOneRadio id="defesa"
-                                                  value="#{TrabalhoBean.defesa.statusdefesa}"
-                                                  converter="javax.faces.Boolean"
-                                                  required="true"
-                                                  requiredMessage="Selecione Sim ou Não." >
+								<h:outputLabel value="Orientador:" style="float:right" />
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:selectOneMenu id="orientador" required="true"
+										value="#{TrabalhoBean.orientador.siape}" filter="true"
+										filterMatchMode="startsWith" panelStyle="width:345px"
+										style="width:365px;" requiredMessage="Selecione o orientador.">
+										<f:selectItem itemLabel="Selecione" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{TrabalhoBean.listaProfessorParaOrientacao}" var="o"
+											itemValue="#{o.value}" itemLabel="#{o.label}" />
+									</p:selectOneMenu>
+									<p:commandLink onclick="PF('dlgCadastroProfessor').show();"
+										value="Cadastrar Professor" style="float: right;" />
+								</h:panelGrid>
+							</h:panelGrid>
 
-                                    <f:selectItem itemLabel="Sim" itemValue="true" />
-                                    <f:selectItem itemLabel="Não" itemValue="false" />
+							<h:panelGrid columns="4" cellpadding="5"
+								style="padding-right:255px;">
+								<p:outputLabel value="Horas por dia:"
+									style="text-align:right;padding-left:20px;" />
+								<p:calendar id="horas" value="#{TrabalhoBean.qtdHoras}"
+									style="padding-right:5px;" maxlength="5" maxHour="8"
+									minHour="3" required="true"
+									requiredMessage="Inserir horas por dia." locale="pt"
+									maxMinute="00" pattern="HH:mm" timeOnly="true">
+									<p:ajax event="dateSelect" process="@this,curso,defesa"
+										listener="#{TrabalhoBean.defesaListener}"
+										update="paineldefesa finalizar" />
+								</p:calendar>
 
-                                    <p:ajax  process="@this,curso,horas"
-                                             listener="#{TrabalhoBean.defesaListener}"
-                                             update="paineldefesa finalizar" />
-                                </p:selectOneRadio>
-                            </h:panelGrid>
+								<h:outputText value="Haverá Defesa?"
+									style="text-align:right;padding-left:10px" />
+								<p:selectOneRadio id="defesa"
+									value="#{TrabalhoBean.defesa.statusdefesa}"
+									converter="javax.faces.Boolean" required="true"
+									requiredMessage="Selecione Sim ou Não.">
 
-                            <h:panelGrid id="paineldefesa"  columns="6" cellpadding="5"  style="padding-left:65px;min-width:600px;">
-                                <p:outputLabel value="Data Matrícula:" rendered="#{TrabalhoBean.exibirDefesa}" />
-                                <p:calendar id="dataMatricula"
-                                            value="#{TrabalhoBean.trabalho.datamatricula}"
-                                            rendered="#{TrabalhoBean.exibirDefesa}"
-                                            required="true"
-                                            requiredMessage="Inserir data matrícula."
-                                            pattern="dd/MM/yyyy"
-                                            locale="pt" >
-                                    <p:ajax event="dateSelect" process="@this,curso,defesa"
-                                            listener="#{TrabalhoBean.defesaListener}"
-                                            update="dataMinDefesa dataMaxDefesa finalizar" />
-                                </p:calendar>
+									<f:selectItem itemLabel="Sim" itemValue="true" />
+									<f:selectItem itemLabel="Não" itemValue="false" />
 
-                                <p:outputLabel value="Data Mínima:"  style="text-align:right;padding-left:10px" rendered="#{TrabalhoBean.exibirDefesa}" />
-                                <p:calendar id="dataMinDefesa"
-                                            value="#{TrabalhoBean.dataMinDefesa}"
-                                            rendered="#{TrabalhoBean.exibirDefesa}"
-                                            required="true"
-                                            requiredMessage="Inserir data mínima para defesa."
-                                            pattern="dd/MM/yyyy"
-                                            locale="pt" >
-                                </p:calendar>
-                                <p:outputLabel value="Data Máxima:"  style="text-align:right;padding-left:10px" rendered="#{TrabalhoBean.exibirDefesa}" />
-                                <p:calendar id="dataMaxDefesa" value="#{TrabalhoBean.dataMaxDefesa}" rendered="#{TrabalhoBean.exibirDefesa}"
-                                            required="true"
-                                            requiredMessage="Inserir data máxima para defesa."
-                                            pattern="dd/MM/yyyy"
-                                            locale="pt" >
-                                </p:calendar>
-                            </h:panelGrid>
+									<p:ajax process="@this,curso,horas"
+										listener="#{TrabalhoBean.defesaListener}"
+										update="paineldefesa finalizar" />
+								</p:selectOneRadio>
+							</h:panelGrid>
 
-                            <h:panelGrid id="finalizar" columns="2" cellpadding="5"
-                                         style="padding-right:70px;padding-top:10px"  >
-                                <p:commandButton  id="cadastrar"
+							<h:panelGrid id="paineldefesa" columns="6" cellpadding="5"
+								style="padding-left:65px;min-width:600px;">
+								<p:outputLabel value="Data Matrícula:" />
+								<p:calendar id="dataMatricula"
+									value="#{TrabalhoBean.trabalho.datamatricula}" required="true"
+									requiredMessage="Inserir data matrícula." pattern="dd/MM/yyyy"
+									locale="pt">
+									<p:ajax event="dateSelect" process="@this,curso,defesa"
+										listener="#{TrabalhoBean.defesaListener}"
+										update="dataMinDefesa dataMaxDefesa finalizar" />
+								</p:calendar>
 
-                                                  icon="ui-icon-disk"
-                                                  value="Salvar"
-                                                  process="@form"
-                                                  update="growlTrabalho"
-                                                  actionListener="#{TrabalhoBean.cadastrar}" />
-                            </h:panelGrid>
+								<p:outputLabel value="Data Mínima:"
+									style="text-align:right;padding-left:10px"
+									rendered="#{TrabalhoBean.exibirDefesa}" />
+								<p:calendar id="dataMinDefesa"
+									value="#{TrabalhoBean.dataMinDefesa}"
+									rendered="#{TrabalhoBean.exibirDefesa}" required="true"
+									requiredMessage="Inserir data mínima para defesa."
+									pattern="dd/MM/yyyy" locale="pt">
+								</p:calendar>
+								<p:outputLabel value="Data Máxima:"
+									style="text-align:right;padding-left:10px"
+									rendered="#{TrabalhoBean.exibirDefesa}" />
+								<p:calendar id="dataMaxDefesa"
+									value="#{TrabalhoBean.dataMaxDefesa}"
+									rendered="#{TrabalhoBean.exibirDefesa}" required="true"
+									requiredMessage="Inserir data máxima para defesa."
+									pattern="dd/MM/yyyy" locale="pt">
+								</p:calendar>
+							</h:panelGrid>
 
-                            <p:focus id="focoCurso" for="curso" />
-                        </p:panel>
-                    </h:form>
-                    <h:form id="mudarPagina" prependId="false" rendered="#{ProfessorBean.usuarioProfessor != true}"  >
-                        <p:panel id="panelOpcoes"  style="margin-bottom:10px;width:98%;" >
-                            <h:panelGrid columns="2"  columnClasses="coluna1, coluna2">
-                                <p:column id="coluna1" >
-                                    <p:commandLink value="Tela Principal" action="sistema.xhtml" ajax="false"   />
-                                </p:column>
-                                <p:column id="coluna2">
-                                    <p:commandLink value="Visualizar Trabalhos" action="visualizarTrabalho.xhtml" ajax="false"  />
-                                </p:column>
-                            </h:panelGrid>
-                        </p:panel>
-                    </h:form>
-                </div>
-            </h:body>
-        </f:view>
-    </ui:define>
+							<h:panelGrid id="finalizar" columns="2" cellpadding="5"
+								style="padding-right:70px;padding-top:10px">
+								<p:commandButton id="cadastrar" icon="ui-icon-disk"
+									value="Salvar" process="@form" update="growlTrabalho"
+									actionListener="#{TrabalhoBean.cadastrar}" />
+							</h:panelGrid>
+
+							<p:focus id="focoCurso" for="curso" />
+						</p:panel>
+					</h:form>
+					<h:form id="mudarPagina" prependId="false"
+						rendered="#{ProfessorBean.usuarioProfessor != true}">
+						<p:panel id="panelOpcoes" style="margin-bottom:10px;width:98%;">
+							<h:panelGrid columns="2" columnClasses="coluna1, coluna2">
+								<p:column id="coluna1">
+									<p:commandLink value="Tela Principal" action="sistema.xhtml"
+										ajax="false" />
+								</p:column>
+								<p:column id="coluna2">
+									<p:commandLink value="Visualizar Trabalhos"
+										action="visualizarTrabalho.xhtml" ajax="false" />
+								</p:column>
+							</h:panelGrid>
+						</p:panel>
+					</h:form>
+				</div>
+			</h:body>
+		</f:view>
+	</ui:define>
 </ui:composition>

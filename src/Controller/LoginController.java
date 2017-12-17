@@ -70,6 +70,7 @@ public final class LoginController implements Serializable {
                     
                     if(true) {
                     	System.out.println("Stsp");
+                    	System.out.println("");
                     }
 
                     if (login.getProfessorsiape().getPerfilidperfil().getNomeperfil().equals("Professor")) {

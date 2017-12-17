@@ -249,10 +249,10 @@ public class TrabalhoController extends DadosTrabalho {
             this.getTrabalho().setProfessorsiape(this.getOrientador());
             //-------------------------------------------------------------------
             //status do trabalho "Pré-Aprovado";"Em andamento";"Finalizado"
-            TrabalhoStatusDAO sDAO = new TrabalhoStatusDAO();
-            Trabalhostatus status = sDAO.getStatusByTipo("Pré-Aprovado");
-            this.getTrabalho().setStatusidstatus(status);
-            sDAO.closeSession();
+//            TrabalhoStatusDAO sDAO = new TrabalhoStatusDAO();
+//            Trabalhostatus status = sDAO.getStatusByTipo("Pré-Aprovado");
+//            this.getTrabalho().setStatusidstatus(status);
+//            sDAO.closeSession();
             //-------------------------------------------------------------------
             //inserir trabalho
             boolean realizado;
