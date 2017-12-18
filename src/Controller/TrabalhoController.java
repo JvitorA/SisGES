@@ -1,5 +1,20 @@
 package Controller;
 
+import java.net.MalformedURLException;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.mail.EmailException;
+
 import Controller.Data.DadosTrabalho;
 import Dao.AssinaturaDAO;
 import Dao.BancaDAO;
@@ -7,6 +22,7 @@ import Dao.CursoDAO;
 import Dao.DefesaDAO;
 import Dao.EmailConfigDAO;
 import Dao.ModalidadeDAO;
+import Dao.ProfessorDAO;
 import Dao.TrabalhoDAO;
 import Dao.TrabalhoStatusDAO;
 import Email.CommonsEmail;
@@ -16,21 +32,10 @@ import Model.Curso;
 import Model.Defesa;
 import Model.Login;
 import Model.Modalidade;
+import Model.Professor;
 import Model.Trabalho;
 import Model.Trabalhostatus;
 import Util.CalendarFormat;
-import java.net.MalformedURLException;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
-import org.apache.commons.mail.EmailException;
 
 /**
  *
@@ -428,7 +433,11 @@ public class TrabalhoController extends DadosTrabalho {
             mDAO.closeSession();
             //---------------------------------------------------------
             //pegar dados orientador
-            this.getTrabalho().setProfessorsiape(this.getOrientador());
+            ProfessorDAO professorOrientadorDAO = new ProfessorDAO();
+            Professor newOrientador = professorOrientadorDAO.getProfessorBySiape(this.getOrientador().getSiape());
+            this.getTrabalho().setProfessorsiape(newOrientador);
+            this.setOrientador(newOrientador);
+            professorOrientadorDAO.closeSession();
             //---------------------------------------------------------
             //pegar qtd horas
             this.getTrabalho().setQtdhorasdia(this.getQtdHoras());
@@ -648,8 +657,8 @@ public class TrabalhoController extends DadosTrabalho {
             }
 
             StringBuilder destino = new StringBuilder();
-            destino.append(this.getTrabalho().getProfessorsiape().getEmail()).append(";");
-            destino.append(this.getTrabalho().getAlunomatricula().getEmail());
+            //destino.append(this.getTrabalho().getProfessorsiape().getEmail()).append(";");
+            //destino.append(this.getTrabalho().getAlunomatricula().getEmail());
 
             this.setDestinatarios(destino.toString());
             this.setTitulo("FACOM/UFU - Coordenacao de Estagio Supervisionado");
