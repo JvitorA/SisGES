@@ -74,10 +74,10 @@ public final class HibernateUtil implements Serializable {
             Configuration configuration = new Configuration();
             configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
             configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
-            configuration.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/SisGES");
-            configuration.setProperty("hibernate.connection.username", "postgres");
+            configuration.setProperty("hibernate.connection.url", "jdbc:postgresql://ec2-184-72-228-128.compute-1.amazonaws.com:5432/d76e1r5nkmem6n?sslmode=require");
+            configuration.setProperty("hibernate.connection.username", "ieeqgtrrryqlxu");
             //configuration.setProperty("hibernate.connection.password", "210189");
-            configuration.setProperty("hibernate.connection.password", "sisges123654");
+            configuration.setProperty("hibernate.connection.password", "7c3d7ab713d893baeaa3b8742eb2dfacc36400b8eab984462f6841d1e29d50c8");
             configuration.setProperty("hibernate.show_sql", "false");
             configuration.setProperty("hibernate.format_sql", "true");
             configuration.setProperty("hibernate.current_session_context_class", "thread");
