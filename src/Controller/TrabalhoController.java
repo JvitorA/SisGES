@@ -657,8 +657,8 @@ public class TrabalhoController extends DadosTrabalho {
             }
 
             StringBuilder destino = new StringBuilder();
-            //destino.append(this.getTrabalho().getProfessorsiape().getEmail()).append(";");
-            //destino.append(this.getTrabalho().getAlunomatricula().getEmail());
+            destino.append(this.getTrabalho().getProfessorsiape().getEmail()).append(";");
+            destino.append(this.getTrabalho().getAlunomatricula().getEmail());
 
             this.setDestinatarios(destino.toString());
             this.setTitulo("FACOM/UFU - Coordenacao de Estagio Supervisionado");

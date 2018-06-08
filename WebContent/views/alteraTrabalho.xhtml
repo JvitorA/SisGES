@@ -381,7 +381,7 @@ and open the template in the editor.
                                                      panelStyle="width:345px"
                                                      style="width:365px;" requiredMessage="Selecione o orientador." >
                                         <f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
-                                        <f:selectItems value="#{TrabalhoBean.listaProfessorParaOrientacao}"  var="e" itemValue="#{e.value}" itemLabel="#{e.label}"   />
+                                        <f:selectItems value="#{TrabalhoBean.listaProfessor}"  var="e" itemValue="#{e.value}" itemLabel="#{e.label}"   />
                                     </p:selectOneMenu>
                                     <p:commandLink onclick="PF('dlgCadastroProfessor').show();"
                                                    rendered="#{ProfessorBean.usuarioProfessor != true}"

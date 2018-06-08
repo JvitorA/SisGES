@@ -275,6 +275,19 @@ and open the template in the editor.
 											var="ts" itemValue="#{ts.value}" itemLabel="#{ts.label}" />
 									</p:selectOneMenu>
 								</h:panelGrid>
+								
+								<p:outputLabel value="Data Matrícula:" style="float:right" />
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:calendar id="dataMatricula"
+										value="#{TrabalhoBean.trabalho.datamatricula}" required="true"
+										requiredMessage="Inserir data matrícula." pattern="dd/MM/yyyy"
+										locale="pt">
+										<p:ajax event="dateSelect" process="@this,curso,defesa"
+											listener="#{TrabalhoBean.defesaListener}"
+											update="dataMinDefesa dataMaxDefesa finalizar" />
+									</p:calendar>
+								</h:panelGrid>
+								
 
 								<h:outputLabel value="Curso:" style="float:right" />
 								<h:panelGrid columns="2" cellpadding="5">
@@ -421,15 +434,15 @@ and open the template in the editor.
 
 							<h:panelGrid id="paineldefesa" columns="6" cellpadding="5"
 								style="padding-left:65px;min-width:600px;">
-								<p:outputLabel value="Data Matrícula:" />
-								<p:calendar id="dataMatricula"
-									value="#{TrabalhoBean.trabalho.datamatricula}" required="true"
-									requiredMessage="Inserir data matrícula." pattern="dd/MM/yyyy"
-									locale="pt">
-									<p:ajax event="dateSelect" process="@this,curso,defesa"
-										listener="#{TrabalhoBean.defesaListener}"
-										update="dataMinDefesa dataMaxDefesa finalizar" />
-								</p:calendar>
+<!-- 								<p:outputLabel value="Data Matrícula:" /> -->
+<!-- 								<p:calendar id="dataMatricula" -->
+<!-- 									value="#{TrabalhoBean.trabalho.datamatricula}" required="true" -->
+<!-- 									requiredMessage="Inserir data matrícula." pattern="dd/MM/yyyy" -->
+<!-- 									locale="pt"> -->
+<!-- 									<p:ajax event="dateSelect" process="@this,curso,defesa" -->
+<!-- 										listener="#{TrabalhoBean.defesaListener}" -->
+<!-- 										update="dataMinDefesa dataMaxDefesa finalizar" /> -->
+<!-- 								</p:calendar> -->
 
 								<p:outputLabel value="Data Mínima:"
 									style="text-align:right;padding-left:10px"
